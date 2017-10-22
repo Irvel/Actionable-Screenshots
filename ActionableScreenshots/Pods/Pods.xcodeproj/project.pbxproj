@@ -1721,6 +1721,41 @@
 			};
 			name = Release;
 		};
+		2D6FF72407E7CCD0EDDD7C63D63A45B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C45218CF588F6EAC1D8ADC011620C41B /* Pods-ActionableScreenshots.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-ActionableScreenshots/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_ActionableScreenshots;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		59F0302F2371FCC6B73EF0A418D40734 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1781,7 +1816,7 @@
 			};
 			name = Debug;
 		};
-		66B9897F56B8D28C6B10439F52D17D4B /* Debug */ = {
+		7671517CF220606F4ABE6F5945D2CD00 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BCF531CF75A51872369331B391BB576B /* Pods-ActionableScreenshots.debug.xcconfig */;
 			buildSettings = {
@@ -1794,6 +1829,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-ActionableScreenshots/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1813,7 +1850,7 @@
 			};
 			name = Debug;
 		};
-		AFDBE51DC54B9D9D28458F12E9B59F6B /* Debug */ = {
+		A3EFE4E40ACAD8EC8D4B184FD6CB23E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F284AC07768FD508C10C1D36FA79760F /* TesseractOCRiOS.xcconfig */;
 			buildSettings = {
@@ -1826,7 +1863,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/TesseractOCRiOS/TesseractOCRiOS-prefix.pch";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = "Target Support Files/TesseractOCRiOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1843,7 +1882,7 @@
 			};
 			name = Debug;
 		};
-		E94C666808C00BE44574FEE148E7A0CD /* Release */ = {
+		D511CECB938412F02F3EDEA01CB4C4AB /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F284AC07768FD508C10C1D36FA79760F /* TesseractOCRiOS.xcconfig */;
 			buildSettings = {
@@ -1856,7 +1895,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/TesseractOCRiOS/TesseractOCRiOS-prefix.pch";
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				INFOPLIST_FILE = "Target Support Files/TesseractOCRiOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1867,39 +1908,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		F2A03F8241314E742A56EFEB1DBB1DCB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C45218CF588F6EAC1D8ADC011620C41B /* Pods-ActionableScreenshots.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-ActionableScreenshots/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_ActionableScreenshots;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1922,8 +1930,8 @@
 		433E540BF8A8CA78ACEFC673A8C6CD4F /* Build configuration list for PBXNativeTarget "Pods-ActionableScreenshots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				66B9897F56B8D28C6B10439F52D17D4B /* Debug */,
-				F2A03F8241314E742A56EFEB1DBB1DCB /* Release */,
+				7671517CF220606F4ABE6F5945D2CD00 /* Debug */,
+				2D6FF72407E7CCD0EDDD7C63D63A45B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1931,8 +1939,8 @@
 		BB0B116B9EE58E5287A689BFF0E1A8FC /* Build configuration list for PBXNativeTarget "TesseractOCRiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AFDBE51DC54B9D9D28458F12E9B59F6B /* Debug */,
-				E94C666808C00BE44574FEE148E7A0CD /* Release */,
+				A3EFE4E40ACAD8EC8D4B184FD6CB23E5 /* Debug */,
+				D511CECB938412F02F3EDEA01CB4C4AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

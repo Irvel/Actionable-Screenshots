@@ -43,7 +43,32 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         
         screenshotsAlbum = getScreenshotsAlbum()
         nonProcessedScreenshots = getNonProcessedScreenshots()
+        
         // processScreenshots()
+        let ocrProcessor = OCRProcessor()
+        let textScreenshot = UIImage(named: "screenshot")!
+        let nonTextScreenshot = UIImage(named: "no_text")!
+        var startTime = CFAbsoluteTimeGetCurrent()
+        if let ocrResult = ocrProcessor.extractText(from: textScreenshot) {
+            print("OCR extracted text:")
+            print(ocrResult)
+        }
+        else {
+            print("OCR Failed to extract any text")
+        }
+        var ocrElapsed = Double(CFAbsoluteTimeGetCurrent() - startTime)
+        print("OCR took \(ocrElapsed) seconds to process")
+        
+        startTime = CFAbsoluteTimeGetCurrent()
+        if let ocrResult = ocrProcessor.extractText(from: nonTextScreenshot) {
+            print("OCR extracted text:")
+            print(ocrResult)
+        }
+        else {
+            print("OCR Failed to extract any text")
+        }
+        ocrElapsed = Double(CFAbsoluteTimeGetCurrent() - startTime)
+        print("OCR took \(ocrElapsed) seconds to process")
         
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0

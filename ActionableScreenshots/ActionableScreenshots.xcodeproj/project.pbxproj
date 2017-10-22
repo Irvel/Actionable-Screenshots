@@ -14,6 +14,8 @@
 		15135EA01F9C289A00556147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */; };
 		15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA71F9C2F0000556147 /* DetailViewController.swift */; };
 		15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA91F9CED1500556147 /* CollectionViewCell.swift */; };
+		CCC1AA5C1F9D3EF4002D2873 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CCC1AA5B1F9D3EF4002D2873 /* tessdata */; };
+		CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */; };
 		CE211736B537D8376B0E2223 /* Pods_ActionableScreenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.release.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.release.xcconfig"; sourceTree = "<group>"; };
 		AE99825839862897ECA3EEC9 /* Pods-ActionableScreenshots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActionableScreenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCC1AA5B1F9D3EF4002D2873 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +74,9 @@
 				15135E991F9C289A00556147 /* Main.storyboard */,
 				15135EA91F9CED1500556147 /* CollectionViewCell.swift */,
 				15135EA71F9C2F0000556147 /* DetailViewController.swift */,
+				CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */,
 				15135E9C1F9C289A00556147 /* Assets.xcassets */,
+				CCC1AA5B1F9D3EF4002D2873 /* tessdata */,
 				15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */,
 				15135EA11F9C289A00556147 /* Info.plist */,
 			);
@@ -157,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15135EA01F9C289A00556147 /* LaunchScreen.storyboard in Resources */,
+				CCC1AA5C1F9D3EF4002D2873 /* tessdata in Resources */,
 				15135E9D1F9C289A00556147 /* Assets.xcassets in Resources */,
 				15135E9B1F9C289A00556147 /* Main.storyboard in Resources */,
 			);
@@ -227,6 +234,7 @@
 				15135E941F9C289A00556147 /* AppDelegate.swift in Sources */,
 				15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
+				CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +374,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5JMT3TS376;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ActionableScreenshots/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jgalvan.ActionableScreenshots;
@@ -382,6 +391,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5JMT3TS376;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ActionableScreenshots/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jgalvan.ActionableScreenshots;
