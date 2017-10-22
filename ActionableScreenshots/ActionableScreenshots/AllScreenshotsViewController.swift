@@ -9,25 +9,44 @@
 import UIKit
 import Photos
 
+// Collection depending on environment
+#if (arch(i386) || arch(x86_64)) && os(iOS) // Simulator
+    private let collectionTitle = "Camera Roll"
+#else   // Device
+    private let collectionTitle = "Screenshots"
+#endif
+
 class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    // MARK: Class variables
     
     private let reuseIdentifier = "Cell"
     var screenshotsAlbum: PHFetchResult<PHAsset>!
+    
+    var lastProcessed = Date(timeIntervalSince1970: 0)
+    var nonProcessedScreenshots: PHFetchResult<PHAsset>!
+    
     var cellSize: CGSize!
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    // MARK: Class overrides
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //screenshotsAlbum = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+        let last = UserDefaults.standard.value(forKey: "lastProcessedDate") as? Date
+        if last != nil {
+            lastProcessed = last!
+        }
+        
         screenshotsAlbum = getScreenshotsAlbum()
+        nonProcessedScreenshots = getNonProcessedScreenshots()
+        // processScreenshots()
         
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
-        
-        self.navigationController?.hidesBarsOnSwipe = true
-        self.tabBarController?.hidesBottomBarWhenPushed = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,17 +54,40 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Photo retrieval
+    
     func getScreenshotsAlbum() -> PHFetchResult<PHAsset> {
-        let albumsPhoto:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        let smartAlbums:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
         var screenshotsAlbum: PHFetchResult<PHAsset>!
-        albumsPhoto.enumerateObjects({(collection, index, object) in
-            if collection.localizedTitle == "Camera Roll" { // "Screenshots" {
-                screenshotsAlbum = PHAsset.fetchAssets(in: collection, options: nil)
+        
+        smartAlbums.enumerateObjects({(collection, index, object) in
+            if collection.localizedTitle == collectionTitle {
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+                screenshotsAlbum = PHAsset.fetchAssets(in: collection, options: fetchOptions)
             }
         })
         
         return screenshotsAlbum
     }
+    
+    func getNonProcessedScreenshots() -> PHFetchResult<PHAsset> {
+        var notProcessed: PHFetchResult<PHAsset>!
+        let smartAlbums:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        
+        smartAlbums.enumerateObjects({(collection, index, object) in
+            if collection.localizedTitle == collectionTitle {
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.predicate = NSPredicate(format: "creationDate >= %@", self.lastProcessed as CVarArg)
+                fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: true)]
+                notProcessed = PHAsset.fetchAssets(in: collection, options: fetchOptions)
+            }
+        })
+        
+        return notProcessed
+    }
+    
+    // MARK: Functions for CollectionView
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // Compute the dimension of a cell for an NxN layout with space S between
@@ -66,15 +108,18 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
         
         // Configure the cell
         let currentImg = getImage(forIndex: indexPath.row, width: cellSize.width, height: cellSize.height)
-        let myImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cellSize.width, height: cellSize.height))
+        cell.imgView.image = currentImg
+        if indexPath.row < nonProcessedScreenshots.count {
+            cell.activityIndicator.startAnimating()
+        }
+        else {
+            cell.activityIndicator.stopAnimating()
+        }
         
-        myImageView.image = currentImg
-        
-        cell.contentView.addSubview(myImageView)
         
         return cell
     }
@@ -88,8 +133,16 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         return img!
     }
     
-    @IBAction func unwindDetail(segueUnwind: UIStoryboardSegue) {
+    // MARK: Navigation
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
+        
+        if selectedImageIndex < nonProcessedScreenshots.count {
+            return false
+        }
+        
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,7 +151,26 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         let destinationView = segue.destination as! DetailViewController
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
         let idForImage = screenshotsAlbum[selectedImageIndex].localIdentifier
+        
         destinationView.idForImage = idForImage
+    }
+    
+    @IBAction func unwindDetail(segueUnwind: UIStoryboardSegue) {
+        
+    }
+    
+    // MARK: Processing
+    
+    func processScreenshots() {
+        // Do whatever to process screenshots
+        
+        // Reset nonprocessed
+        self.lastProcessed = Date()
+        UserDefaults.standard.setValue(lastProcessed, forKey: "lastProcessedDate")
+        nonProcessedScreenshots = PHFetchResult()
+        
+        // Reload collectionview
+        collectionView.reloadData()
     }
     
 }

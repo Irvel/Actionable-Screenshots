@@ -13,6 +13,7 @@
 		15135E9D1F9C289A00556147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15135E9C1F9C289A00556147 /* Assets.xcassets */; };
 		15135EA01F9C289A00556147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */; };
 		15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA71F9C2F0000556147 /* DetailViewController.swift */; };
+		15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA91F9CED1500556147 /* CollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		15135E9F1F9C289A00556147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15135EA11F9C289A00556147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15135EA71F9C2F0000556147 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		15135EA91F9CED1500556147 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				15135E931F9C289A00556147 /* AppDelegate.swift */,
 				15135E971F9C289A00556147 /* AllScreenshotsViewController.swift */,
 				15135E991F9C289A00556147 /* Main.storyboard */,
+				15135EA91F9CED1500556147 /* CollectionViewCell.swift */,
 				15135EA71F9C2F0000556147 /* DetailViewController.swift */,
 				15135E9C1F9C289A00556147 /* Assets.xcassets */,
 				15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 			files = (
 				15135E981F9C289A00556147 /* AllScreenshotsViewController.swift in Sources */,
 				15135E941F9C289A00556147 /* AppDelegate.swift in Sources */,
+				15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +283,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5JMT3TS376;
 				INFOPLIST_FILE = ActionableScreenshots/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jgalvan.ActionableScreenshots;
@@ -293,6 +298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5JMT3TS376;
 				INFOPLIST_FILE = ActionableScreenshots/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jgalvan.ActionableScreenshots;

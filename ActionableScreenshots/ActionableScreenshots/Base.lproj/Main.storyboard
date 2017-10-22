@@ -28,14 +28,35 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="CjY-xV-0jj">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="CjY-xV-0jj" customClass="CollectionViewCell" customModule="ActionableScreenshots" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lXl-a3-pSN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GQ0-hr-cp7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <color key="backgroundColor" red="0.15345369435702674" green="0.25240887486790714" blue="0.26470703124999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="lXl-a3-pSN" firstAttribute="top" secondItem="CjY-xV-0jj" secondAttribute="top" id="2ea-mc-1E0"/>
+                                            <constraint firstAttribute="trailing" secondItem="GQ0-hr-cp7" secondAttribute="trailing" id="46u-1I-Wsk"/>
+                                            <constraint firstAttribute="trailing" secondItem="lXl-a3-pSN" secondAttribute="trailing" id="Frr-F9-E8r"/>
+                                            <constraint firstItem="lXl-a3-pSN" firstAttribute="leading" secondItem="CjY-xV-0jj" secondAttribute="leading" id="G1V-Ev-brR"/>
+                                            <constraint firstAttribute="bottom" secondItem="lXl-a3-pSN" secondAttribute="bottom" id="Peb-AM-1vK"/>
+                                            <constraint firstItem="GQ0-hr-cp7" firstAttribute="leading" secondItem="CjY-xV-0jj" secondAttribute="leading" id="SqU-zt-pAG"/>
+                                            <constraint firstAttribute="bottom" secondItem="GQ0-hr-cp7" secondAttribute="bottom" id="bZ5-GH-K0u"/>
+                                            <constraint firstItem="GQ0-hr-cp7" firstAttribute="top" secondItem="CjY-xV-0jj" secondAttribute="top" id="oTI-GI-weM"/>
+                                        </constraints>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="GQ0-hr-cp7" id="v60-FJ-do3"/>
+                                            <outlet property="imgView" destination="lXl-a3-pSN" id="MUP-2F-zqI"/>
                                             <segue destination="Ejx-rm-Gle" kind="presentation" id="QMx-Jy-nro"/>
                                         </connections>
                                     </collectionViewCell>
