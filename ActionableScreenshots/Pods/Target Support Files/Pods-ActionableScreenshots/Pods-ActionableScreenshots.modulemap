@@ -1,0 +1,6 @@
+framework module Pods_ActionableScreenshots {
+  umbrella header "Pods-ActionableScreenshots-umbrella.h"
+
+  export *
+  module * { export * }
+}

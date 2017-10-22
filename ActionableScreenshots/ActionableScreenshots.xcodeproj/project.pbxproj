@@ -14,6 +14,7 @@
 		15135EA01F9C289A00556147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */; };
 		15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA71F9C2F0000556147 /* DetailViewController.swift */; };
 		15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA91F9CED1500556147 /* CollectionViewCell.swift */; };
+		CE211736B537D8376B0E2223 /* Pods_ActionableScreenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,9 @@
 		15135EA11F9C289A00556147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15135EA71F9C2F0000556147 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		15135EA91F9CED1500556147 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.release.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.release.xcconfig"; sourceTree = "<group>"; };
+		AE99825839862897ECA3EEC9 /* Pods-ActionableScreenshots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.debug.xcconfig"; sourceTree = "<group>"; };
+		C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActionableScreenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE211736B537D8376B0E2223 /* Pods_ActionableScreenshots.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 			children = (
 				15135E921F9C289A00556147 /* ActionableScreenshots */,
 				15135E911F9C289A00556147 /* Products */,
+				559C829B460C8A9E01C1121E /* Pods */,
+				F62F7DE8044F1D2B4C987E91 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +77,23 @@
 			path = ActionableScreenshots;
 			sourceTree = "<group>";
 		};
+		559C829B460C8A9E01C1121E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AE99825839862897ECA3EEC9 /* Pods-ActionableScreenshots.debug.xcconfig */,
+				9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F62F7DE8044F1D2B4C987E91 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,9 +101,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 15135EA41F9C289A00556147 /* Build configuration list for PBXNativeTarget "ActionableScreenshots" */;
 			buildPhases = (
+				248DBC66A426093A4E4B0BBD /* [CP] Check Pods Manifest.lock */,
 				15135E8C1F9C289A00556147 /* Sources */,
 				15135E8D1F9C289A00556147 /* Frameworks */,
 				15135E8E1F9C289A00556147 /* Resources */,
+				F9C7296305715753A7E3365E /* [CP] Embed Pods Frameworks */,
+				9F19314D13E6F2CE712584F7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -136,6 +163,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		248DBC66A426093A4E4B0BBD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ActionableScreenshots-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F19314D13E6F2CE712584F7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9C7296305715753A7E3365E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		15135E8C1F9C289A00556147 /* Sources */ = {
@@ -280,6 +361,7 @@
 		};
 		15135EA51F9C289A00556147 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE99825839862897ECA3EEC9 /* Pods-ActionableScreenshots.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -295,6 +377,7 @@
 		};
 		15135EA61F9C289A00556147 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
