@@ -35,7 +35,6 @@
 		0FDC4E2ADC9B13FE21C19403334CF561 /* strngs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B480764210E8750372C990DAAEB0ACA /* strngs.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		102B6C78188E32078C2DDDCFEE26E0E1 /* params_model.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7F47F5B406BDD11947F312E033F052 /* params_model.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		105A3CD5447BF94BB8D416C32528DB29 /* watershed.h in Headers */ = {isa = PBXBuildFile; fileRef = A65117B726E3F7A8D269F5E7EB0A52A1 /* watershed.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		1090CD48591EAE5EB47CB6E44997A6EA /* UIImage+G8FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36175DF01E48DD0925AACE38855E50D1 /* UIImage+G8FixOrientation.m */; };
 		111D22B1A30128F9B0E7A4FC56A7988A /* matchdefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 26516DD46BEB5672D7D790753879C61F /* matchdefs.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1231F23E3E3EA13C602DE749D8A2EB4D /* cube_search_object.h in Headers */ = {isa = PBXBuildFile; fileRef = 0620554DD7206124E84DF26E10CAAA9A /* cube_search_object.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1396C8F0A08C367973A9E733A8D6925F /* language_model.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C69E37240302F6550ACDC560BD90C9B /* language_model.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -57,6 +56,7 @@
 		23A85CAE64544F46583BDC459720639D /* equationdetectbase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A3891F560AF1B86A61141E2DCB37FE6 /* equationdetectbase.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		24F2BDB213356516BA17D7BC84B92D9D /* feature_base.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F37FD93E8D3EE7B116311395D9DE2C /* feature_base.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		250452DE4C2D61C8A587D46B066D6772 /* object_cache.h in Headers */ = {isa = PBXBuildFile; fileRef = A6A7432F502BC827DAB671721ED22256 /* object_cache.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		251DBF109F9DDD549D595528B69373D5 /* G8Tesseract.mm in Sources */ = {isa = PBXBuildFile; fileRef = 257ACB454021EED9FA621C0CF66B0986 /* G8Tesseract.mm */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		258E888EA93B056A54312F7EC62C62D1 /* gplot.h in Headers */ = {isa = PBXBuildFile; fileRef = 690595884AF40FF188FF8BCF63EB063E /* gplot.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		26F5625B956FFAEDA40B262278081DD8 /* G8TesseractParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 665FA235EFF13F2641CD5B8A025216D6 /* G8TesseractParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27C057D902F590AA7F07005682124B86 /* freetype.h in Headers */ = {isa = PBXBuildFile; fileRef = BA7B51B1D572E0C0EE43BDFCFB1B7E4B /* freetype.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -68,7 +68,6 @@
 		2A5AD475CA885C2290CB21C30F5FCF6E /* quspline.h in Headers */ = {isa = PBXBuildFile; fileRef = 5034B96635C3A254BB8FD42348AB6B3F /* quspline.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2B779BE0B518116DFF171D5DF8558660 /* colpartition.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D4DABF8ED72B2CD4FBBBB87B511750 /* colpartition.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2C50D92FA3F7805A5F0A3B4623DEAE08 /* const.h in Headers */ = {isa = PBXBuildFile; fileRef = A2F2BAF824DC9F09112195C300627DE3 /* const.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		2C5480D4DF1CDD01990B424BA31AA10B /* UIImage+G8Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = 250367AA33FD781098CA47CDF486990E /* UIImage+G8Filters.m */; };
 		2CFF9B00CAE7C343DF2AC0F7B492E670 /* unicharmap.h in Headers */ = {isa = PBXBuildFile; fileRef = CA0ED16EA704A8E7A73EF265325AFD96 /* unicharmap.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2D1B81A739CC436D101A2180B8A3A602 /* intfeaturedist.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D2D19DE65E940D604FB00414D46E2F8 /* intfeaturedist.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2D234D50148374E6D201711C13CB316E /* indexmapbidi.h in Headers */ = {isa = PBXBuildFile; fileRef = 87EDBF6135487859C322AC1B637BD433 /* indexmapbidi.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -78,9 +77,9 @@
 		2E5511218FB74AD7B0FDA5E86E6249E3 /* ocrrow.h in Headers */ = {isa = PBXBuildFile; fileRef = 5682418348B7D589311976395F12B03E /* ocrrow.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2E5C75D214B11E8205D6EB1B4B0E75E2 /* sampleiterator.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E84A960EB829617E2F51D3E21FE076A /* sampleiterator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2EA9243B6589EFC39D12DBA467AC54AF /* workingpartset.h in Headers */ = {isa = PBXBuildFile; fileRef = F9021E15695F82CEDF35D447EF82DFA3 /* workingpartset.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		2EB3201901A99130648C9B0CBB7E1F93 /* G8TesseractParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A911769B2E363417CA56BC09A4C340F /* G8TesseractParameters.m */; };
 		2F3F90BE3B0DB891596997BF9EB735FD /* normfeat.h in Headers */ = {isa = PBXBuildFile; fileRef = CA6D840C63ACE6EFCB852EBFFAF9DC71 /* normfeat.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2F7565833F495F13D3DBF910BC7F54ED /* intfeaturemap.h in Headers */ = {isa = PBXBuildFile; fileRef = D99104D5FD3699CB116C8BF02973A328 /* intfeaturemap.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		3222EDBB5C820294CC73D4E31E864814 /* G8TesseractParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A911769B2E363417CA56BC09A4C340F /* G8TesseractParameters.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		32D2E0A4A7DABA39304BAAE9B1A3F0CC /* tlog.h in Headers */ = {isa = PBXBuildFile; fileRef = 76951E55AAB4AC962DD2F3FB3614629D /* tlog.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		33828B57B01A108BF11D3930D3649BAC /* UIImage+G8FixOrientation.h in Headers */ = {isa = PBXBuildFile; fileRef = C96C1925D56B5275BBB37735E511AEEE /* UIImage+G8FixOrientation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3609F06FFDFDB63E162FC432AEBF9608 /* svmnode.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBC793E0B5FF8459648752CB4A2EE30 /* svmnode.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -90,7 +89,6 @@
 		3730E08590E34579F3C4674B03AD9A8C /* otsuthr.h in Headers */ = {isa = PBXBuildFile; fileRef = 15F406639F2C39D626859B9BC1ED7738 /* otsuthr.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		37782C3EC3BB74BBF691C6E69800FBF8 /* crakedge.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE16F5C77CCBB4E7970BE8E90187813 /* crakedge.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		378AF71F38FE019400624D41745F8FDF /* alignedblob.h in Headers */ = {isa = PBXBuildFile; fileRef = 711E65BDD4E8E3FF8C9DF58DF4C4BC9F /* alignedblob.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		37D669758662511353CB67A65155563C /* G8Tesseract.mm in Sources */ = {isa = PBXBuildFile; fileRef = 257ACB454021EED9FA621C0CF66B0986 /* G8Tesseract.mm */; };
 		37DAFB5A5C337AF8E40422E5BC083517 /* chopper.h in Headers */ = {isa = PBXBuildFile; fileRef = A05BE8BE1EA749A6F98D869A34D9E23D /* chopper.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		3AB669A5D69604A829352888F1E40C25 /* listio.h in Headers */ = {isa = PBXBuildFile; fileRef = 133A0C2510FA999B27C5B31654CCADE8 /* listio.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		3B3DCB16F26149A651BC8E7898CB5FEC /* devanagari_processing.h in Headers */ = {isa = PBXBuildFile; fileRef = B92DF9B63853407A9F27EB18CFF120A5 /* devanagari_processing.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -110,6 +108,7 @@
 		449DE1393330AEAD35203B7C832EBADD /* char_samp.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D764241A5069717ED92EE9DE57F963 /* char_samp.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		452E72F073ACFA18A0CEDD1344D5FEC8 /* pageres.h in Headers */ = {isa = PBXBuildFile; fileRef = EBB5A230F86C1679CEEFE96AC4B42FA2 /* pageres.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		46318A34E581F765470AAEABEC6AA496 /* seam.h in Headers */ = {isa = PBXBuildFile; fileRef = B83D5A19D01C4CFF4C37313FB2FDD315 /* seam.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		46BD86526ADB793DDFA6B470C768E435 /* G8RecognizedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8750AF351CED2B718DA9BE494A0661 /* G8RecognizedBlock.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		48E3A7CD1A598EF64C01BC722B011F5B /* intproto.h in Headers */ = {isa = PBXBuildFile; fileRef = A8B5E577D45DA66A6A4A7A238FBE729F /* intproto.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		49F620A4F5D94787423DAC0828D366CC /* normmatch.h in Headers */ = {isa = PBXBuildFile; fileRef = D64356032629E305E5EBDCE555E466A1 /* normmatch.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4A441237C619590A91AB2F69F89A6B80 /* tessvars.h in Headers */ = {isa = PBXBuildFile; fileRef = 803A1F746158D0564F92FE5E426A41F7 /* tessvars.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -128,6 +127,7 @@
 		5145746AB8978527375E8C3F197600B6 /* char_bigrams.h in Headers */ = {isa = PBXBuildFile; fileRef = 914E173A548182CD4A1EE7D78742C8A8 /* char_bigrams.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		52FA7D07FB2CD7DE915AB19DEC523526 /* underlin.h in Headers */ = {isa = PBXBuildFile; fileRef = FF4A763E87656657E6DBB1F5FDAF51A2 /* underlin.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5309E89288F7998D9429DB2F378A45A5 /* cube_line_segmenter.h in Headers */ = {isa = PBXBuildFile; fileRef = F7839596D44A5990FE0AB68F5016C240 /* cube_line_segmenter.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		53D8CBACD5681DC14035524B08B8B174 /* G8RecognitionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB2D6AEFA4D350186A14D776080C9A6 /* G8RecognitionOperation.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		53FBCAC99AC2B5AB681E99128A04F3A3 /* wordseg.h in Headers */ = {isa = PBXBuildFile; fileRef = 96CD47DF7343CD711FE0AC6AEC1824B6 /* wordseg.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		56283C16364DCE5041A57BD6BE358064 /* mutableiterator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C6BC1C46AC5A72BD1678B1543BCDE46 /* mutableiterator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		566B6BAC9A16BA3166F5F666AF6E3C06 /* unicodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F70DFF2CF5BAE426130C0EDA26403CF /* unicodes.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -160,7 +160,6 @@
 		7232CF70AE24DA480A619757B6B6E177 /* universalambigs.h in Headers */ = {isa = PBXBuildFile; fileRef = 00A49C228BE23866B3A63597A2C90E50 /* universalambigs.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		727714D35C607358EF61AF1DCFE25F5F /* ratngs.h in Headers */ = {isa = PBXBuildFile; fileRef = AA21142094FDF5B86731C5B410C2DF6A /* ratngs.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		72D489A954CAE3B67D11C59B0032C538 /* UIImage+G8Filters.h in Headers */ = {isa = PBXBuildFile; fileRef = 833F322B3034F5C4CADF732906ACAED0 /* UIImage+G8Filters.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		730401716DDE37207727724539A5A88E /* G8RecognizedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8750AF351CED2B718DA9BE494A0661 /* G8RecognizedBlock.m */; };
 		73059F7D66A65C60A833A5347859D643 /* outfeat.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DDDCA54810658F352720235EA8B2CE6 /* outfeat.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7394081C31F8ADC810BEC59F2143AA92 /* unicharset.h in Headers */ = {isa = PBXBuildFile; fileRef = FB1E9349A7DC12491DDE5EBBE2045C43 /* unicharset.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		749868782F376229CAFB4692C94504ED /* extract.h in Headers */ = {isa = PBXBuildFile; fileRef = 902845E1E780A8804AF812E9D24F6976 /* extract.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -186,7 +185,6 @@
 		7E3C22D905783668B554D5455F69FA3F /* opencl_device_selection.h in Headers */ = {isa = PBXBuildFile; fileRef = 39C1B5CCB3CD8BEFE9E1E5A8E1432ED3 /* opencl_device_selection.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7E4F6DE80DD86E404D0DAD0C83D41C93 /* blkocc.h in Headers */ = {isa = PBXBuildFile; fileRef = C281F544A812A4FF7E21292E1B2B2295 /* blkocc.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7FF9AC90A48ABBDF34DE29E042C2B133 /* tess_lang_mod_edge.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C2A6567781BC10FBD15C2380D060723 /* tess_lang_mod_edge.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8050E2DEF4C8D9BAA35651749D8272A7 /* TesseractOCRiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F095FCE8BFDF106087D5D3A4D25075 /* TesseractOCRiOS-dummy.m */; };
 		80949929534D4193F199D1FE8E117773 /* search_node.h in Headers */ = {isa = PBXBuildFile; fileRef = 24E33D58CA4A67B0443FC877BD0E1A6B /* search_node.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		809A8592D84F4CE4376BD6C58456C8FD /* environ.h in Headers */ = {isa = PBXBuildFile; fileRef = 23E407021BCEA2AE193341E81571A02E /* environ.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		80F2C2F14448F38B3D6AA655C4D93801 /* chop.h in Headers */ = {isa = PBXBuildFile; fileRef = E2C99E3C04F7164FA7DA9044A1D6FB95 /* chop.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -223,8 +221,8 @@
 		9A263711B271E6BEEF3348D5D03F585B /* unichar.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D895DD19093C1F1B7BAEF4628A880EA /* unichar.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9AE8B96E75DD882CE2437C8194D29417 /* tablefind.h in Headers */ = {isa = PBXBuildFile; fileRef = 324FBC6320D2DF805D0A38395ADDF537 /* tablefind.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9B07EAAD5E936770A9F4E4B9E9E85E94 /* host.h in Headers */ = {isa = PBXBuildFile; fileRef = 838EB598F4B186A6863777AC0BCEB885 /* host.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		9C051F15674D57826E4D7FA5ECC0BEA5 /* UIImage+G8Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = 250367AA33FD781098CA47CDF486990E /* UIImage+G8Filters.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9E1905F61199C2202A44F434A3A4AC4E /* output.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F85DE3DD2CED83A45D63CF4C99446B /* output.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A105DFCAE602BADC2B8DF819F628D9EB /* G8RecognitionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ECB2D6AEFA4D350186A14D776080C9A6 /* G8RecognitionOperation.m */; };
 		A215BCDF250EF09D06AD9FA8B9FF3133 /* paramsd.h in Headers */ = {isa = PBXBuildFile; fileRef = CBA694463301EFDED6E36EC45416153F /* paramsd.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A28C104059CDB0ABA45A8DFA020A594F /* icuerrorcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 029D3CA67E53999166B40FF3449E879A /* icuerrorcode.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A2D20341291657221B2B7EE8AB58458D /* fpchop.h in Headers */ = {isa = PBXBuildFile; fileRef = 06B9036F74258EB734A8784072C4B815 /* fpchop.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -265,6 +263,7 @@
 		B7CC1B8B6B8F1E56A3788A2748E925CB /* intmatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B46215FEE4F4C967E35BC38F3E54B69 /* intmatcher.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B7E0A1F4C92BCC3389E6EE3BC6FA421B /* feature_hybrid.h in Headers */ = {isa = PBXBuildFile; fileRef = C8EAD62497148F6B0B222665F21DD7C2 /* feature_hybrid.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B84472027D534A41DC50BDD7764813C4 /* tesseract_cube_combiner.h in Headers */ = {isa = PBXBuildFile; fileRef = 48B06D9208F4CD3CC6605E15E038D3BF /* tesseract_cube_combiner.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B8A9F409666B2BAB69A6E5DE845F30C4 /* TesseractOCRiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F095FCE8BFDF106087D5D3A4D25075 /* TesseractOCRiOS-dummy.m */; };
 		B933BAD60604A8D38AFABD148F205195 /* G8TesseractDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = BCEE6EF722B9993D162100EDB568817E /* G8TesseractDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA56E91F5D80A1F7697962BB738F0081 /* sortflts.h in Headers */ = {isa = PBXBuildFile; fileRef = E775C4BC87FB61C050A01C596DB2D519 /* sortflts.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BAE456EBD87E6B161F60E23D5B2449BA /* stderr.h in Headers */ = {isa = PBXBuildFile; fileRef = 2702DDACACB9195CBF84D23FFFD52AEA /* stderr.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -350,6 +349,7 @@
 		F81348230C43CC13F9E9E7A1B5960531 /* char_set.h in Headers */ = {isa = PBXBuildFile; fileRef = 6988C593C57283FA6868E9E28D651BE6 /* char_set.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F8E2C8551EFD213C74EBED2BA0E4441B /* recog.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BC563D82F686F6B76B0419BB4EEE3BB /* recog.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F8F3636C767F9D02BDAAC248A5504E02 /* tessedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A665330A46C9F5FD94420F07C76C0DF /* tessedit.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F9EB9D2B5A5BB01A1542E8B88B119F44 /* UIImage+G8FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 36175DF01E48DD0925AACE38855E50D1 /* UIImage+G8FixOrientation.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		F9EFBCFCD32160EE97DF56D22BF656A3 /* blread.h in Headers */ = {isa = PBXBuildFile; fileRef = 278154E3611AB6C89CC4BA83874B7CEC /* blread.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FA6662CB7E95A08EAA90E09BD21E5E4A /* baselinedetect.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B4EF5C8ECD3C0D64AED0477684D3C65 /* baselinedetect.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FB52FA968E107410CDF6E1831CDA4732 /* search_object.h in Headers */ = {isa = PBXBuildFile; fileRef = 79A7EB773B7074145E752992E7A8B071 /* search_object.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1591,7 +1591,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB0B116B9EE58E5287A689BFF0E1A8FC /* Build configuration list for PBXNativeTarget "TesseractOCRiOS" */;
 			buildPhases = (
-				F58E01C45F8A0CB31389DD2B5EA25068 /* Sources */,
+				BD1A1BDC55B74C170BD85C10FED92E67 /* Sources */,
 				5F5A61E8C4CDC117B4043C40C9A1C687 /* Frameworks */,
 				DC02E2A7EF80827D1764D88BBE9F72FB /* Headers */,
 			);
@@ -1640,17 +1640,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F58E01C45F8A0CB31389DD2B5EA25068 /* Sources */ = {
+		BD1A1BDC55B74C170BD85C10FED92E67 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A105DFCAE602BADC2B8DF819F628D9EB /* G8RecognitionOperation.m in Sources */,
-				730401716DDE37207727724539A5A88E /* G8RecognizedBlock.m in Sources */,
-				37D669758662511353CB67A65155563C /* G8Tesseract.mm in Sources */,
-				2EB3201901A99130648C9B0CBB7E1F93 /* G8TesseractParameters.m in Sources */,
-				8050E2DEF4C8D9BAA35651749D8272A7 /* TesseractOCRiOS-dummy.m in Sources */,
-				2C5480D4DF1CDD01990B424BA31AA10B /* UIImage+G8Filters.m in Sources */,
-				1090CD48591EAE5EB47CB6E44997A6EA /* UIImage+G8FixOrientation.m in Sources */,
+				53D8CBACD5681DC14035524B08B8B174 /* G8RecognitionOperation.m in Sources */,
+				46BD86526ADB793DDFA6B470C768E435 /* G8RecognizedBlock.m in Sources */,
+				251DBF109F9DDD549D595528B69373D5 /* G8Tesseract.mm in Sources */,
+				3222EDBB5C820294CC73D4E31E864814 /* G8TesseractParameters.m in Sources */,
+				B8A9F409666B2BAB69A6E5DE845F30C4 /* TesseractOCRiOS-dummy.m in Sources */,
+				9C051F15674D57826E4D7FA5ECC0BEA5 /* UIImage+G8Filters.m in Sources */,
+				F9EB9D2B5A5BB01A1542E8B88B119F44 /* UIImage+G8FixOrientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

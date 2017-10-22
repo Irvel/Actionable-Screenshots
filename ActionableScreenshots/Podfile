@@ -1,5 +1,8 @@
 platform :ios, '11.0'
 
+# Tesseract generates around 204 noisy warnings
+inhibit_all_warnings!
+
 target 'ActionableScreenshots' do
   use_frameworks!
 
