@@ -21,10 +21,10 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: Class variables
     
     private let reuseIdentifier = "Cell"
-    var screenshotsAlbum: PHFetchResult<PHAsset>!
+    var screenshotsAlbum: PHFetchResult<PHAsset> = PHFetchResult()
     
     var lastProcessed = Date(timeIntervalSince1970: 0)
-    var nonProcessedScreenshots: PHFetchResult<PHAsset>!
+    var nonProcessedScreenshots: PHFetchResult<PHAsset> = PHFetchResult()
     
     var cellSize: CGSize!
     
@@ -40,9 +40,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         if last != nil {
             lastProcessed = last!
         }
-        
-        screenshotsAlbum = getScreenshotsAlbum()
-        nonProcessedScreenshots = getNonProcessedScreenshots()
         
         // processScreenshots()
         let ocrProcessor = OCRProcessor()
@@ -79,7 +76,52 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        initializeScreenshotResults()
+    }
+    
     // MARK: Photo retrieval
+    
+    func initializeScreenshotResults() {
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            screenshotsAlbum = getScreenshotsAlbum()
+            nonProcessedScreenshots = getNonProcessedScreenshots()
+            // processScreenshots()
+            break
+        case .denied:
+            alertRequestAccess()
+            break
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({(newStatus) -> Void in
+                if newStatus == .authorized {
+                    self.screenshotsAlbum = self.getScreenshotsAlbum()
+                    self.nonProcessedScreenshots = self.getNonProcessedScreenshots()
+                }
+                else {
+                    self.alertRequestAccess()
+                }
+            })
+        default:
+            break
+        }
+        
+        collectionView.reloadData()
+    }
+    
+    func alertRequestAccess() {
+        let alert = UIAlertController(title: "Error", message: "This app is not authorized to access your photos, please give access to continue.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (_) in
+            DispatchQueue.main.async {
+                if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+                    UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     func getScreenshotsAlbum() -> PHFetchResult<PHAsset> {
         let smartAlbums:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
@@ -151,9 +193,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     func getImage(forIndex: Int, width: CGFloat, height: CGFloat) -> UIImage {
         var img: UIImage!
-        PHImageManager.default().requestImage(for: (screenshotsAlbum?[forIndex])!, targetSize: CGSize(width: width, height: height), contentMode: .aspectFit, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
+        PHImageManager.default().requestImage(for: (screenshotsAlbum[forIndex]), targetSize: CGSize(width: width, height: height), contentMode: .aspectFit, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
             img = image
         }
+        
+        print(CGSize(width: width, height: height))
         
         return img!
     }
