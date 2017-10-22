@@ -1,0 +1,8 @@
+platform :ios, '11.0'
+
+target 'ActionableScreenshots' do
+  use_frameworks!
+
+  # Tesseract for iOS Pod
+    pod 'TesseractOCRiOS', '4.0.0'
+end
