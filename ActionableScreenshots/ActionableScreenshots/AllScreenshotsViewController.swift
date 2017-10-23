@@ -16,12 +16,14 @@ import Photos
     private let collectionTitle = "Screenshots"
 #endif
 
-class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchDisplayDelegate {
     
     // MARK: Class variables
     
     private let reuseIdentifier = "Cell"
     var screenshotsAlbum: PHFetchResult<PHAsset> = PHFetchResult()
+    var screenshotsCollection = [Screenshot]()
+    var filteredScreenshots = [Screenshot]()
     
     var lastProcessed = Date(timeIntervalSince1970: 0)
     var nonProcessedScreenshots: PHFetchResult<PHAsset> = PHFetchResult()
@@ -69,6 +71,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
+        self.searchBar.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,6 +108,16 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         default:
             break
         }
+        
+        if screenshotsAlbum.count > 0 {
+            for index in 0...screenshotsAlbum.count - 1 {
+                let screenshot = Screenshot(id: String(index))
+                screenshot.text = dummyText(index: index)
+                screenshot.image = screenshotsAlbum[index]
+                screenshotsCollection.append(screenshot)
+            }
+        }
+        filteredScreenshots = screenshotsCollection
         
         collectionView.reloadData()
     }
@@ -154,6 +167,12 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         return notProcessed
     }
     
+    // MARK: Functions for SearchBar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredScreenshots = screenshotsCollection.filter{searchText == "" || $0.text.contains(searchText)}
+        collectionView.reloadData()
+    }
+    
     // MARK: Functions for CollectionView
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -171,14 +190,15 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return screenshotsAlbum.count
+        return filteredScreenshots.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
+        let screenshot = filteredScreenshots[indexPath.row]
         
         // Configure the cell
-        let currentImg = getImage(forIndex: indexPath.row, width: cellSize.width, height: cellSize.height)
+        let currentImg = getImage(phAsset: screenshot.image!, width: cellSize.width, height: cellSize.height)
         cell.imgView.image = currentImg
         if indexPath.row < nonProcessedScreenshots.count {
             cell.activityIndicator.startAnimating()
@@ -191,9 +211,9 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         return cell
     }
     
-    func getImage(forIndex: Int, width: CGFloat, height: CGFloat) -> UIImage {
+    func getImage(phAsset: PHAsset, width: CGFloat, height: CGFloat) -> UIImage {
         var img: UIImage!
-        PHImageManager.default().requestImage(for: (screenshotsAlbum[forIndex]), targetSize: CGSize(width: width, height: height), contentMode: .aspectFit, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
+        PHImageManager.default().requestImage(for: (phAsset), targetSize: CGSize(width: width, height: height), contentMode: .aspectFit, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
             img = image
         }
         
@@ -240,6 +260,18 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         
         // Reload collectionview
         collectionView.reloadData()
+    }
+    
+    func dummyText(index: Int) -> String {
+        if (index == 1) {
+            return "Primera"
+        } else if (index == 2) {
+            return "Segunda"
+        } else if (index == 3) {
+            return "Tercera"
+        } else {
+            return "Otras"
+        }
     }
     
 }

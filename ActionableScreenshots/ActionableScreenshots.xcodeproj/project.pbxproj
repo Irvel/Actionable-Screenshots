@@ -17,6 +17,7 @@
 		CCC1AA5C1F9D3EF4002D2873 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CCC1AA5B1F9D3EF4002D2873 /* tessdata */; };
 		CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */; };
 		CE211736B537D8376B0E2223 /* Pods_ActionableScreenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */; };
+		9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932FCB11F9D6647001C7005 /* Screenshot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActionableScreenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC1AA5B1F9D3EF4002D2873 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRProcessor.swift; sourceTree = "<group>"; };
+		9932FCB11F9D6647001C7005 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				CCC1AA5B1F9D3EF4002D2873 /* tessdata */,
 				15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */,
 				15135EA11F9C289A00556147 /* Info.plist */,
+				9932FCB11F9D6647001C7005 /* Screenshot.swift */,
 			);
 			path = ActionableScreenshots;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
 				CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */,
+				9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
