@@ -26,11 +26,6 @@ class DetailViewController: UIViewController {
             self.imgView.image = image
         }
     }
-    
-    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
-        let segue = PopUpSegue(identifier: unwindSegue.identifier, source: unwindSegue.source, destination: unwindSegue.destination)
-        segue.perform()
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

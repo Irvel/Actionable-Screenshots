@@ -15,7 +15,6 @@
 		15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA71F9C2F0000556147 /* DetailViewController.swift */; };
 		15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA91F9CED1500556147 /* CollectionViewCell.swift */; };
 		9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932FCB11F9D6647001C7005 /* Screenshot.swift */; };
-		CCA9B45D1F9DC365001187F7 /* PopUpSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA9B45C1F9DC365001187F7 /* PopUpSegue.swift */; };
 		CCC1AA5C1F9D3EF4002D2873 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CCC1AA5B1F9D3EF4002D2873 /* tessdata */; };
 		CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */; };
 		CE211736B537D8376B0E2223 /* Pods_ActionableScreenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */; };
@@ -35,7 +34,6 @@
 		9932FCB11F9D6647001C7005 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		AE99825839862897ECA3EEC9 /* Pods-ActionableScreenshots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActionableScreenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCA9B45C1F9DC365001187F7 /* PopUpSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpSegue.swift; sourceTree = "<group>"; };
 		CCC1AA5B1F9D3EF4002D2873 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				15135E931F9C289A00556147 /* AppDelegate.swift */,
-				CCA9B45C1F9DC365001187F7 /* PopUpSegue.swift */,
 				15135E971F9C289A00556147 /* AllScreenshotsViewController.swift */,
 				15135E991F9C289A00556147 /* Main.storyboard */,
 				15135EA91F9CED1500556147 /* CollectionViewCell.swift */,
@@ -241,7 +238,6 @@
 				15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
 				CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */,
-				CCA9B45D1F9DC365001187F7 /* PopUpSegue.swift in Sources */,
 				9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
