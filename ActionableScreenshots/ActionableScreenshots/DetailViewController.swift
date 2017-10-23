@@ -12,14 +12,15 @@ import Photos
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var imgView: UIImageView!
-    var idForImage: String!
+    var screenshot: Screenshot?
+    var screenshotId: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-        let imageFetch = PHAsset.fetchAssets(withLocalIdentifiers: [idForImage], options: nil).firstObject
+        let imageFetch = PHAsset.fetchAssets(withLocalIdentifiers: [screenshotId], options: nil).firstObject
         
         PHImageManager.default().requestImage(for: imageFetch!, targetSize: CGSize(width: imgView.frame.size.width, height: imgView.frame.size.height), contentMode: .aspectFit, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
             self.imgView.image = image
@@ -52,5 +53,21 @@ class DetailViewController: UIViewController {
         act.popoverPresentationController?.sourceView = self.view
         self.present(act, animated: true, completion: nil)
     }
+    
+    @IBAction func viewTextButtonTapped(_ sender: Any) {
+        if screenshot!.hasText {
+            let alertController = UIAlertController(title: "Recognized Text", message: screenshot!.text, preferredStyle: .alert)
+            
+            let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+                // ...
+            }
+            alertController.addAction(OKAction)
+            
+            self.present(alertController, animated: true) {
+                // ...
+            }
+        }
+    }
+    
 
 }

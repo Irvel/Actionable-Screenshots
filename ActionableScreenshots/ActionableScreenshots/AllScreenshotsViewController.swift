@@ -42,33 +42,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         if last != nil {
             lastProcessed = last!
         }
-        
-        // processScreenshots()
-        let ocrProcessor = OCRProcessor()
-        let textScreenshot = UIImage(named: "screenshot")!
-        let nonTextScreenshot = UIImage(named: "no_text")!
-        var startTime = CFAbsoluteTimeGetCurrent()
-        if let ocrResult = ocrProcessor.extractText(from: textScreenshot) {
-            print("OCR extracted text:")
-            print(ocrResult)
-        }
-        else {
-            print("OCR Failed to extract any text")
-        }
-        var ocrElapsed = Double(CFAbsoluteTimeGetCurrent() - startTime)
-        print("OCR took \(ocrElapsed) seconds to process")
-        
-        startTime = CFAbsoluteTimeGetCurrent()
-        if let ocrResult = ocrProcessor.extractText(from: nonTextScreenshot) {
-            print("OCR extracted text:")
-            print(ocrResult)
-        }
-        else {
-            print("OCR Failed to extract any text")
-        }
-        ocrElapsed = Double(CFAbsoluteTimeGetCurrent() - startTime)
-        print("OCR took \(ocrElapsed) seconds to process")
-        
+
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
         self.searchBar.delegate = self
@@ -118,8 +92,8 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         filteredScreenshots = screenshotsCollection
-        
         collectionView.reloadData()
+        processScreenshots()
     }
     
     func alertRequestAccess() {
@@ -169,7 +143,8 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     // MARK: Functions for SearchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredScreenshots = screenshotsCollection.filter{searchText == "" || $0.text.contains(searchText)}
+        // BUG: (Maybe?) Not sure if nil screenshots with no text make this crash
+        filteredScreenshots = screenshotsCollection.filter{searchText == "" || $0.text!.contains(searchText)}
         collectionView.reloadData()
     }
     
@@ -240,8 +215,14 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         let destinationView = segue.destination as! DetailViewController
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
         let idForImage = screenshotsAlbum[selectedImageIndex].localIdentifier
-        
-        destinationView.idForImage = idForImage
+        print("Selected image index: \(selectedImageIndex)")
+
+        for screenshot in screenshotsCollection {
+            if screenshot.id == String(selectedImageIndex) {
+                destinationView.screenshot = screenshot
+            }
+        }
+        destinationView.screenshotId = idForImage
     }
     
     @IBAction func unwindDetail(segueUnwind: UIStoryboardSegue) {
@@ -252,7 +233,16 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     func processScreenshots() {
         // Do whatever to process screenshots
-        
+        let ocrProcessor = OCRProcessor()
+        let startTime = CFAbsoluteTimeGetCurrent()
+        for image in screenshotsCollection {
+            if let extractedText = ocrProcessor.extractText(from: image.image) {
+                image.text = extractedText
+            }
+        }
+        let ocrElapsed = Double(CFAbsoluteTimeGetCurrent() - startTime)
+        print("Tesseract took \(ocrElapsed) seconds to process \(screenshotsCollection.count) screenshots")
+
         // Reset nonprocessed
         self.lastProcessed = Date()
         UserDefaults.standard.setValue(lastProcessed, forKey: "lastProcessedDate")

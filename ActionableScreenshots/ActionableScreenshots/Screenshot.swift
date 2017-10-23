@@ -11,8 +11,13 @@ import Photos
 
 class Screenshot {
     var id: String
-    var text: String = ""
+    var text: String?
     var image: PHAsset?
+    var hasText: Bool {
+        get {
+            return text != nil
+        }
+    }
     
     init(id: String) {
         self.id = id
