@@ -17,7 +17,7 @@ class OCRProcessor {
         let option = PHImageRequestOptions()
         var image: UIImage?
         option.isSynchronous = true
-        manager.requestImage(for: asset!, targetSize: CGSize(width: 400, height: 400), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+        manager.requestImage(for: asset!, targetSize: CGSize(width: 700, height: 700), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
             image = result
         })
         return image

@@ -61,26 +61,26 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     func initializeScreenshotResults() {
         // TODO: Only load screenshots if they haven't been loaded already
         switch PHPhotoLibrary.authorizationStatus() {
-        case .authorized:
-            screenshotsAlbum = getScreenshotsAlbum()
-            nonProcessedScreenshots = getNonProcessedScreenshots()
-            // processScreenshots()
-            break
-        case .denied:
-            alertRequestAccess()
-            break
-        case .notDetermined:
-            PHPhotoLibrary.requestAuthorization({(newStatus) -> Void in
-                if newStatus == .authorized {
-                    self.screenshotsAlbum = self.getScreenshotsAlbum()
-                    self.nonProcessedScreenshots = self.getNonProcessedScreenshots()
-                }
-                else {
-                    self.alertRequestAccess()
-                }
-            })
-        default:
-            break
+            case .authorized:
+                screenshotsAlbum = getScreenshotsAlbum()
+                nonProcessedScreenshots = getNonProcessedScreenshots()
+                break
+            case .denied:
+                alertRequestAccess()
+                break
+            case .notDetermined:
+                // BUG: On the first run this doesn't work even if the user allows photo access
+                PHPhotoLibrary.requestAuthorization({(newStatus) -> Void in
+                    if newStatus == .authorized {
+                        self.screenshotsAlbum = self.getScreenshotsAlbum()
+                        self.nonProcessedScreenshots = self.getNonProcessedScreenshots()
+                    }
+                    else {
+                        self.alertRequestAccess()
+                    }
+                })
+            default:
+                break
         }
         
         if screenshotsAlbum.count > 0 {
@@ -90,10 +90,15 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
                 screenshot.image = screenshotsAlbum[index]
                 screenshotsCollection.append(screenshot)
             }
-            processScreenshots()
+            collectionView.reloadData()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.processScreenshots()
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
         }
         filteredScreenshots = screenshotsCollection
-        collectionView.reloadData()
         
     }
     
@@ -145,7 +150,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: Functions for SearchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // BUG: (Maybe?) Not sure if nil screenshots with no text make this crash
-        filteredScreenshots = screenshotsCollection.filter{searchText == "" || $0.text!.contains(searchText)}
+        filteredScreenshots = screenshotsCollection.filter{searchText == "" || $0.text!.lowercased().contains(searchText.lowercased())}
         collectionView.reloadData()
     }
     
@@ -235,22 +240,17 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     func processScreenshots() {
         // Do whatever to process screenshots
         let ocrProcessor = OCRProcessor()
-        let startTime = CFAbsoluteTimeGetCurrent()
         for image in screenshotsCollection {
+            print("Extracting text from image...")
             if let extractedText = ocrProcessor.extractText(from: image.image) {
                 image.text = extractedText
             }
         }
-        let ocrElapsed = Double(CFAbsoluteTimeGetCurrent() - startTime)
-        print("Tesseract took \(ocrElapsed) seconds to process \(screenshotsCollection.count) screenshots")
 
         // Reset nonprocessed
         self.lastProcessed = Date()
         UserDefaults.standard.setValue(lastProcessed, forKey: "lastProcessedDate")
         nonProcessedScreenshots = PHFetchResult()
-        
-        // Reload collectionview
-        collectionView.reloadData()
     }
     
     func dummyText(index: Int) -> String {
