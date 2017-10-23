@@ -42,7 +42,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         if last != nil {
             lastProcessed = last!
         }
-
+        initializeScreenshotResults()
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
         self.searchBar.delegate = self
@@ -54,12 +54,12 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        initializeScreenshotResults()
     }
     
     // MARK: Photo retrieval
     
     func initializeScreenshotResults() {
+        // TODO: Only load screenshots if they haven't been loaded already
         switch PHPhotoLibrary.authorizationStatus() {
         case .authorized:
             screenshotsAlbum = getScreenshotsAlbum()
@@ -90,10 +90,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
                 screenshot.image = screenshotsAlbum[index]
                 screenshotsCollection.append(screenshot)
             }
+            processScreenshots()
         }
         filteredScreenshots = screenshotsCollection
         collectionView.reloadData()
-        processScreenshots()
+        
     }
     
     func alertRequestAccess() {
