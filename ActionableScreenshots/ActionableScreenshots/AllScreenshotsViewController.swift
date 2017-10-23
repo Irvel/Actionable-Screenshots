@@ -194,11 +194,9 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     func getImage(phAsset: PHAsset, width: CGFloat, height: CGFloat) -> UIImage {
         var img: UIImage!
-        PHImageManager.default().requestImage(for: (phAsset), targetSize: CGSize(width: width, height: height), contentMode: .aspectFit, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
+        PHImageManager.default().requestImage(for: (phAsset), targetSize: CGSize(width: 500, height: 500), contentMode: .aspectFill, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
             img = image
         }
-        
-        print(CGSize(width: width, height: height))
         
         return img!
     }
@@ -220,14 +218,10 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // Pass the selected object to the new view controller.
         let destinationView = segue.destination as! DetailViewController
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
-        let idForImage = screenshotsAlbum[selectedImageIndex].localIdentifier
+        let idForImage = filteredScreenshots[selectedImageIndex].image?.localIdentifier
         print("Selected image index: \(selectedImageIndex)")
 
-        for screenshot in screenshotsCollection {
-            if screenshot.id == String(selectedImageIndex) {
-                destinationView.screenshot = screenshot
-            }
-        }
+        destinationView.screenshot = filteredScreenshots[selectedImageIndex]
         destinationView.screenshotId = idForImage
     }
     
