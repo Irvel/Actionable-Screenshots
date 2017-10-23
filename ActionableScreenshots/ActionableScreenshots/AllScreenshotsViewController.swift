@@ -27,6 +27,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     var lastProcessed = Date(timeIntervalSince1970: 0)
     var nonProcessedScreenshots: PHFetchResult<PHAsset> = PHFetchResult()
+    var processed = 0
     
     var cellSize: CGSize!
     
@@ -93,9 +94,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
             collectionView.reloadData()
             DispatchQueue.global(qos: .userInitiated).async {
                 self.processScreenshots()
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
             }
         }
         filteredScreenshots = screenshotsCollection
@@ -181,12 +179,21 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // Configure the cell
         let currentImg = getImage(phAsset: screenshot.image!, width: cellSize.width, height: cellSize.height)
         cell.imgView.image = currentImg
+        
+        if indexPath.row < processed {
+            cell.activityIndicator.stopAnimating()
+        }
+        else {
+            cell.activityIndicator.startAnimating()
+        }
+        
+        /*
         if indexPath.row < nonProcessedScreenshots.count {
             cell.activityIndicator.startAnimating()
         }
         else {
             cell.activityIndicator.stopAnimating()
-        }
+        }*/
         
         
         return cell
@@ -206,9 +213,14 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
         
-        if selectedImageIndex < nonProcessedScreenshots.count {
+        
+        if selectedImageIndex >= processed {
             return false
         }
+        /*
+        if selectedImageIndex < nonProcessedScreenshots.count {
+            return false
+        }*/
         
         return true
     }
@@ -238,6 +250,10 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
             print("Extracting text from image...")
             if let extractedText = ocrProcessor.extractText(from: image.image) {
                 image.text = extractedText
+            }
+            processed += 1
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
             }
         }
 
