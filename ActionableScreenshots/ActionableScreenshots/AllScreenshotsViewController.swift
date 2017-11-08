@@ -33,6 +33,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var lbNoPhotos: UILabel!
     
     // MARK: Class overrides
 
@@ -168,6 +169,8 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        lbNoPhotos.isHidden = (filteredScreenshots.count != 0)
+        
         return filteredScreenshots.count
     }
     
