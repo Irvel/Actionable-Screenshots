@@ -17,6 +17,8 @@
 		9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932FCB11F9D6647001C7005 /* Screenshot.swift */; };
 		CCC1AA5C1F9D3EF4002D2873 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CCC1AA5B1F9D3EF4002D2873 /* tessdata */; };
 		CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */; };
+		CCCA61AF1FB51D6A001E7DBC /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */; };
+		CCCA61B11FB51DA7001E7DBC /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA61B01FB51DA7001E7DBC /* ImageClassifier.swift */; };
 		CE211736B537D8376B0E2223 /* Pods_ActionableScreenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,8 @@
 		C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActionableScreenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC1AA5B1F9D3EF4002D2873 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRProcessor.swift; sourceTree = "<group>"; };
+		CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
+		CCCA61B01FB51DA7001E7DBC /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 				15135E991F9C289A00556147 /* Main.storyboard */,
 				15135EA91F9CED1500556147 /* CollectionViewCell.swift */,
 				15135EA71F9C2F0000556147 /* DetailViewController.swift */,
+				CCCA61B21FB51DB0001E7DBC /* Image Classification */,
 				CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */,
 				15135E9C1F9C289A00556147 /* Assets.xcassets */,
 				CCC1AA5B1F9D3EF4002D2873 /* tessdata */,
@@ -93,6 +98,15 @@
 				9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		CCCA61B21FB51DB0001E7DBC /* Image Classification */ = {
+			isa = PBXGroup;
+			children = (
+				CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */,
+				CCCA61B01FB51DA7001E7DBC /* ImageClassifier.swift */,
+			);
+			path = "Image Classification";
 			sourceTree = "<group>";
 		};
 		F62F7DE8044F1D2B4C987E91 /* Frameworks */ = {
@@ -233,10 +247,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCCA61B11FB51DA7001E7DBC /* ImageClassifier.swift in Sources */,
 				15135E981F9C289A00556147 /* AllScreenshotsViewController.swift in Sources */,
 				15135E941F9C289A00556147 /* AppDelegate.swift in Sources */,
 				15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
+				CCCA61AF1FB51D6A001E7DBC /* MobileNet.mlmodel in Sources */,
 				CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */,
 				9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */,
 			);
