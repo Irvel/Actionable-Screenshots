@@ -209,12 +209,10 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         fetchOptions.resizeMode = .fast
 
         PHImageManager.default().requestImage(for: phAsset,
-                                              targetSize: CGSize(width: phAsset.pixelWidth, height: phAsset.pixelHeight),
+                                              targetSize: CGSize(width: width, height: height),
                                               contentMode: .aspectFill,
                                               options: fetchOptions) {
-            (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
-            img = image
-        }
+            (image: UIImage?, info: [AnyHashable: Any]?) -> Void in img = image }
         
         return img!
     }
