@@ -38,10 +38,31 @@ class ImageClassifier {
     
     func classify(image: UIImage) -> String {
         let model = MobileNet()
+        let cool_model = NiceModel()
         let pixelBuffer: CVPixelBuffer = toBuffer(from: image)!
         print(image)
         if let prediction = try? model.prediction(image: pixelBuffer) {
-            return prediction.classLabel
+            var counter = 0
+            print("\n\n")
+            for (k,v) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
+                counter += 1
+                if counter >= 10 {
+                    break
+                }
+                print("\(k):\(v)")
+            }
+        }
+        if let prediction = try? cool_model.prediction(image: pixelBuffer) {
+            print(prediction.output1)
+            print("\n\n")
+            var counter = 0
+            for (k,v) in (Array(prediction.output1).sorted {$0.1 > $1.1}) {
+                counter += 1
+                if counter >= 10 {
+                    break
+                }
+                print("\(k):\(v)")
+            }
         }
         return "hey"
     }
