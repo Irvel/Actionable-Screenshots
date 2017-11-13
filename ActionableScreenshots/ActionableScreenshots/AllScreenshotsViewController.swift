@@ -199,7 +199,15 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     func getImage(phAsset: PHAsset, width: CGFloat, height: CGFloat) -> UIImage {
         var img: UIImage!
-        PHImageManager.default().requestImage(for: (phAsset), targetSize: CGSize(width: phAsset.pixelWidth, height: phAsset.pixelHeight), contentMode: .aspectFill, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
+        let fetchOptions = PHImageRequestOptions()
+        fetchOptions.isSynchronous = true
+        fetchOptions.resizeMode = .fast
+
+        PHImageManager.default().requestImage(for: phAsset,
+                                              targetSize: CGSize(width: phAsset.pixelWidth, height: phAsset.pixelHeight),
+                                              contentMode: .aspectFill,
+                                              options: fetchOptions) {
+            (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
             img = image
         }
         
