@@ -53,10 +53,9 @@ class ImageClassifier {
             }
         }
         if let prediction = try? cool_model.prediction(image: pixelBuffer) {
-            print(prediction.output1)
             print("\n\n")
             var counter = 0
-            for (k,v) in (Array(prediction.output1).sorted {$0.1 > $1.1}) {
+            for (k,v) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
                 counter += 1
                 if counter >= 10 {
                     break
