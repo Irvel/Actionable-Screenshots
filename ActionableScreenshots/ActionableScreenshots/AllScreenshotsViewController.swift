@@ -21,6 +21,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: Class variables
     
     private let reuseIdentifier = "Cell"
+    private let SPACE_BETWEEN_CELLS: CGFloat = 3
     var screenshotsAlbum: PHFetchResult<PHAsset> = PHFetchResult()
     var screenshotsCollection = [Screenshot]()
     var filteredScreenshots = [Screenshot]()
@@ -48,6 +49,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
         self.searchBar.delegate = self
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = SPACE_BETWEEN_CELLS
+        collectionView!.collectionViewLayout = layout
     }
 
     override func didReceiveMemoryWarning() {
@@ -161,8 +167,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // the spaces between the cells, and then divide by N to find the final
         // dimension for the cell's width and height.
         let cellsAcross: CGFloat = 3
-        let spaceBetweenCells: CGFloat = 7
-        let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+        let dim = (collectionView.bounds.width - (cellsAcross - 1) * SPACE_BETWEEN_CELLS) / cellsAcross
         cellSize = CGSize(width: dim, height: dim)
         
         return CGSize(width: dim, height: dim)
@@ -185,7 +190,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
                                   height: cellSize.height)
 
         cell.imgView.image = currentImg
-        cell.layer.cornerRadius = 4.0
+        cell.layer.cornerRadius = 3.1
         
         if indexPath.row < processed {
             cell.activityIndicator.stopAnimating()
@@ -199,9 +204,15 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     func getImage(phAsset: PHAsset, width: CGFloat, height: CGFloat) -> UIImage {
         var img: UIImage!
-        PHImageManager.default().requestImage(for: (phAsset), targetSize: CGSize(width: phAsset.pixelWidth, height: phAsset.pixelHeight), contentMode: .aspectFill, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
-            img = image
-        }
+        let fetchOptions = PHImageRequestOptions()
+        fetchOptions.isSynchronous = true
+        fetchOptions.resizeMode = .fast
+
+        PHImageManager.default().requestImage(for: phAsset,
+                                              targetSize: CGSize(width: width, height: height),
+                                              contentMode: .aspectFill,
+                                              options: fetchOptions) {
+            (image: UIImage?, info: [AnyHashable: Any]?) -> Void in img = image }
         
         return img!
     }
