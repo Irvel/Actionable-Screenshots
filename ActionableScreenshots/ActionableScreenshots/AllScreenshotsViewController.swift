@@ -70,26 +70,26 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // TODO: Only load screenshots if they haven't been loaded already
         switch PHPhotoLibrary.authorizationStatus() {
             case .authorized:
-                screenshotsAlbum = getScreenshotsAlbum()
-                nonProcessedScreenshots = getNonProcessedScreenshots()
+                loadScreenshotAlbum()
                 break
-            case .denied:
+            case .denied, .restricted:
                 alertRequestAccess()
                 break
             case .notDetermined:
-                // BUG: On the first run this doesn't work even if the user allows photo access
                 PHPhotoLibrary.requestAuthorization({(newStatus) -> Void in
                     if newStatus == .authorized {
-                        self.screenshotsAlbum = self.getScreenshotsAlbum()
-                        self.nonProcessedScreenshots = self.getNonProcessedScreenshots()
+                        self.loadScreenshotAlbum()
                     }
                     else {
                         self.alertRequestAccess()
                     }
                 })
-            default:
-                break
         }
+    }
+    
+    func loadScreenshotAlbum() {
+        screenshotsAlbum = getScreenshotsAlbum()
+        nonProcessedScreenshots = getNonProcessedScreenshots()
         
         if screenshotsAlbum.count > 0 {
             for index in 0...screenshotsAlbum.count - 1 {
@@ -104,7 +104,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         filteredScreenshots = screenshotsCollection
-        
     }
     
     func alertRequestAccess() {

@@ -17,13 +17,15 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-        let imageFetch = PHAsset.fetchAssets(withLocalIdentifiers: [screenshotId], options: nil).firstObject
         
-        PHImageManager.default().requestImage(for: imageFetch!, targetSize: CGSize(width: imgView.frame.size.width, height: imgView.frame.size.height), contentMode: .aspectFit, options: nil) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in
-            self.imgView.image = image
+        let fetchOptions = PHImageRequestOptions()
+        fetchOptions.isSynchronous = true
+        
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [screenshotId], options: nil).firstObject
+        if let targetAsset = asset {
+            // TODO: Display an activity indicator while the high-res image is being loaded and make the request asynchronously
+            PHImageManager.default().requestImage(for: targetAsset, targetSize: CGSize(width: imgView.superview!.frame.size.width, height: imgView.superview!.frame.size.height), contentMode: .aspectFit, options: fetchOptions) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in self.imgView.image = image }
         }
     }
 
