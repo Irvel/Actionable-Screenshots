@@ -15,6 +15,7 @@ class Screenshot:Object {
     @objc dynamic var text: String?
     @objc dynamic var creationDate: Date = Date(timeIntervalSince1970: 0)
     @objc dynamic var processed: Bool = false
+    var tags = List<Tag>()
     var hasText: Bool {
         get {
             return text != nil
@@ -37,5 +38,16 @@ class Screenshot:Object {
                                                     (image: UIImage?, info: [AnyHashable: Any]?) -> Void in imageResult = image }
         }
         return imageResult
+    }
+    
+    func addTag(tagString: String) {
+        var tag = Tag()
+        tag.id = tagString
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(tag, update: true)
+        }
+        tag = realm.object(ofType: Tag.self, forPrimaryKey: tag.id)!
+        self.tags.append(tag)
     }
 }

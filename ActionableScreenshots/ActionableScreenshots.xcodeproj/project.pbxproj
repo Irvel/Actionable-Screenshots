@@ -14,6 +14,7 @@
 		15135EA01F9C289A00556147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */; };
 		15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA71F9C2F0000556147 /* DetailViewController.swift */; };
 		15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA91F9CED1500556147 /* CollectionViewCell.swift */; };
+		15EB0B351FBC0EF600582AFB /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EB0B341FBC0EF600582AFB /* Tag.swift */; };
 		9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932FCB11F9D6647001C7005 /* Screenshot.swift */; };
 		CCC1AA5C1F9D3EF4002D2873 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CCC1AA5B1F9D3EF4002D2873 /* tessdata */; };
 		CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */; };
@@ -30,6 +31,7 @@
 		15135EA11F9C289A00556147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15135EA71F9C2F0000556147 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		15135EA91F9CED1500556147 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		15EB0B341FBC0EF600582AFB /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.release.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.release.xcconfig"; sourceTree = "<group>"; };
 		9932FCB11F9D6647001C7005 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		AE99825839862897ECA3EEC9 /* Pods-ActionableScreenshots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.debug.xcconfig"; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			children = (
 				15135E931F9C289A00556147 /* AppDelegate.swift */,
 				15135E971F9C289A00556147 /* AllScreenshotsViewController.swift */,
+				15EB0B341FBC0EF600582AFB /* Tag.swift */,
 				15135E991F9C289A00556147 /* Main.storyboard */,
 				15135EA91F9CED1500556147 /* CollectionViewCell.swift */,
 				15135EA71F9C2F0000556147 /* DetailViewController.swift */,
@@ -240,6 +243,7 @@
 				15135E981F9C289A00556147 /* AllScreenshotsViewController.swift in Sources */,
 				15135E941F9C289A00556147 /* AppDelegate.swift in Sources */,
 				15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */,
+				15EB0B351FBC0EF600582AFB /* Tag.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
 				CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */,
 				9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */,

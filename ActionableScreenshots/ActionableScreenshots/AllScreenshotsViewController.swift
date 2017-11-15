@@ -2,7 +2,7 @@
 //  SecondViewController.swift
 //  ActionableScreenshots
 //
-//  Created by Chuy Galvan on 10/21/17.
+//  Created by Jesus Galvan on 10/21/17.
 //  Copyright © 2017 Jesus Galvan. All rights reserved.
 //
 
@@ -25,7 +25,8 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     private let SPACE_BETWEEN_CELLS: CGFloat = 3
     
     var screenshotsCollection: Results<Screenshot>?
-    var filteredScreenshots: Results<Screenshot>?
+    var filteredScreenshotsQuery: Results<Screenshot>?
+    var filteredScreenshots: Array<Screenshot>?
     
     var lastProcessed = Date(timeIntervalSince1970: 0)
     
@@ -40,7 +41,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
@@ -53,7 +54,8 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         
         let realm = try! Realm()
         screenshotsCollection = realm.objects(Screenshot.self)
-        filteredScreenshots = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
+        filteredScreenshotsQuery = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
+        filteredScreenshots = Array(filteredScreenshotsQuery!)
         lastProcessed = (screenshotsCollection?.filter(NSPredicate(format: "processed = true")).max(ofProperty: "creationDate")) ?? Date(timeIntervalSince1970: 0)
         initializeScreenshotResults()
     }
@@ -161,11 +163,15 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // BUG: (Maybe?) Not sure if nil screenshots with no text make this crash
         if searchText == "" {
-            filteredScreenshots = screenshotsCollection
+            filteredScreenshotsQuery = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
+            filteredScreenshots = Array(filteredScreenshotsQuery!)
         }
         else {
-            let predicate = NSPredicate(format: "text CONTAINS[cd] %@", searchText)
-            filteredScreenshots = screenshotsCollection?.filter(predicate)
+            let predicateQuery = NSPredicate(format: "text CONTAINS[cd] %@", searchText)
+            let predicateTag = NSPredicate(format: "ANY tags.id CONTAINS[cd] %@", searchText)
+            filteredScreenshotsQuery = screenshotsCollection?.filter(predicateQuery)
+            let tagScreenshotsQuery = screenshotsCollection?.filter(predicateTag)
+            filteredScreenshots = (Array(tagScreenshotsQuery!) + Array(filteredScreenshotsQuery!)).orderedSet
         }
         
         collectionView.reloadData()
@@ -253,11 +259,18 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
                     screenshot.processed = true
                 }
             }
-            DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(1)), execute: {
+            DispatchQueue.main.async {
                 self.collectionView.reloadData()
-            })
+            }
         }
     }
     
+}
+
+extension Array where Element: Hashable {
+    var orderedSet: Array  {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
+    }
 }
 
