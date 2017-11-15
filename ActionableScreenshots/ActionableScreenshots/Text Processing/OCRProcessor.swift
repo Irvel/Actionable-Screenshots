@@ -7,10 +7,30 @@
 //
 
 import Foundation
-import TesseractOCR
 import Photos
+import TesseractOCR
+import Vision
+import CoreML
+
+
 
 class OCRProcessor {
+    
+    private let tesseract: G8Tesseract
+    
+    lazy var textRectangleRequest: VNDetectTextRectanglesRequest = {
+        let textRequest = VNDetectTextRectanglesRequest(completionHandler: nil)
+        textRequest.reportCharacterBoxes = true
+        return textRequest
+    }()
+    
+    init() {
+        // TODO: Set the language dynamically based on the system's language
+        tesseract = G8Tesseract(language: "eng")!
+        tesseract.setVariableValue("0123456789abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ!¡¿?$:;,.()[]*{}-_<>\\/",
+                                   forKey: "tessedit_char_whitelist")
+
+    }
     
     func fetchImage (from asset: PHAsset?) -> UIImage? {
         let manager = PHImageManager.default()
@@ -34,15 +54,35 @@ class OCRProcessor {
         return image
     }
     
+    func detectText (dectect_image:UIImage) -> Bool {
+        let handler:VNImageRequestHandler = VNImageRequestHandler.init(cgImage: (dectect_image.cgImage)!)
+        var detectedText = false
+        
+        let request:VNDetectTextRectanglesRequest = VNDetectTextRectanglesRequest.init(completionHandler: { (request, error) in
+            if( (error) == nil) {
+                if let result = request.results {
+                    if result.count > 0 {
+                        detectedText = true
+                    }
+                }
+            }
+        })
+        request.reportCharacterBoxes = true
+        try! handler.perform([request])
+        
+        return detectedText
+    }
+    
     // TODO: Avoid attempting to extract-text if the image does not contain text
     func extractText(from asset: PHAsset?) -> String? {
         // TODO: Add image-preprocessing step
         // TODO: Handle additional languages
         if let image = fetchImage(from: asset) {
-            let classifier = ImageClassifier()
-            let imageClass = classifier.classify(image: fetchSmallImage(from: asset)!)
-            print("The predicted class is: \(imageClass)")
-            if let tesseract = G8Tesseract(language: "eng") {
+            //let classifier = ImageClassifier()
+            // let imageClass = classifier.classify(image: fetchSmallImage(from: asset)!)
+            // tesseract.rect
+            if detectText(dectect_image: image) {
+                print("Characters detected, extracting text from image...")
                 tesseract.image = image.g8_blackAndWhite()
                 tesseract.recognize()
                 return tesseract.recognizedText

@@ -94,7 +94,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         if screenshotsAlbum.count > 0 {
             for index in 0...screenshotsAlbum.count - 1 {
                 let screenshot = Screenshot(id: String(index))
-                screenshot.text = dummyText(index: index)
                 screenshot.image = screenshotsAlbum[index]
                 screenshotsCollection.append(screenshot)
             }
@@ -255,7 +254,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // Do whatever to process screenshots
         let ocrProcessor = OCRProcessor()
         for image in screenshotsCollection {
-            print("Extracting text from image...")
             if let extractedText = ocrProcessor.extractText(from: image.image) {
                 image.text = extractedText
             }
@@ -270,18 +268,5 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         UserDefaults.standard.setValue(lastProcessed, forKey: "lastProcessedDate")
         nonProcessedScreenshots = PHFetchResult()
     }
-    
-    func dummyText(index: Int) -> String {
-        if (index == 1) {
-            return "Primera"
-        } else if (index == 2) {
-            return "Segunda"
-        } else if (index == 3) {
-            return "Tercera"
-        } else {
-            return "Otras"
-        }
-    }
-    
 }
 

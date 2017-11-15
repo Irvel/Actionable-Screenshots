@@ -200,6 +200,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imgView" destination="jzK-vO-cyK" id="61p-VK-1Ke"/>
+                        <outlet property="viewTextButton" destination="XH9-8K-b6g" id="Zer-7S-tZY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAo-XV-3uy" userLabel="First Responder" sceneMemberID="firstResponder"/>
