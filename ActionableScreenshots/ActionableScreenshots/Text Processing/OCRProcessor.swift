@@ -43,17 +43,6 @@ class OCRProcessor {
         return image
     }
     
-    func fetchSmallImage (from asset: PHAsset?) -> UIImage? {
-        let manager = PHImageManager.default()
-        let option = PHImageRequestOptions()
-        var image: UIImage?
-        option.isSynchronous = true
-        manager.requestImage(for: asset!, targetSize: CGSize(width: 224, height: 224), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-            image = result
-        })
-        return image
-    }
-    
     func detectText (dectect_image:UIImage) -> Bool {
         let handler:VNImageRequestHandler = VNImageRequestHandler.init(cgImage: (dectect_image.cgImage)!)
         var detectedText = false
@@ -73,14 +62,9 @@ class OCRProcessor {
         return detectedText
     }
     
-    // TODO: Avoid attempting to extract-text if the image does not contain text
     func extractText(from asset: PHAsset?) -> String? {
         // TODO: Add image-preprocessing step
-        // TODO: Handle additional languages
         if let image = fetchImage(from: asset) {
-            //let classifier = ImageClassifier()
-            // let imageClass = classifier.classify(image: fetchSmallImage(from: asset)!)
-            // tesseract.rect
             if detectText(dectect_image: image) {
                 print("Characters detected, extracting text from image...")
                 tesseract.image = image.g8_blackAndWhite()

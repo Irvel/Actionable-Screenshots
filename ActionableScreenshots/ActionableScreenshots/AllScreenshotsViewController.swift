@@ -251,11 +251,16 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: Processing
     
     func processScreenshots() {
-        // Do whatever to process screenshots
         let ocrProcessor = OCRProcessor()
+        let classifier = ImageClassifier()
         for image in screenshotsCollection {
             if let extractedText = ocrProcessor.extractText(from: image.image) {
                 image.text = extractedText
+            }
+            let mlCategories = classifier.classify(asset: image.image!)
+            if mlCategories.count > 0 {
+                print(mlCategories)
+                image.categories += mlCategories
             }
             processed += 1
             DispatchQueue.main.async {

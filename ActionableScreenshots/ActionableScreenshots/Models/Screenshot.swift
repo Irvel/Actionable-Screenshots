@@ -13,6 +13,8 @@ class Screenshot {
     var id: String
     var text: String?
     var image: PHAsset?
+    var categories: [Category]
+    
     var hasText: Bool {
         get {
             return text != nil
@@ -21,5 +23,6 @@ class Screenshot {
     
     init(id: String) {
         self.id = id
+        self.categories = []
     }
 }

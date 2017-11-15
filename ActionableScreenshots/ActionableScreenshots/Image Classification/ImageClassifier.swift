@@ -10,6 +10,17 @@ import Photos
 
 class ImageClassifier {
     
+    func fetchSmallImage (from asset: PHAsset?) -> UIImage? {
+        let manager = PHImageManager.default()
+        let option = PHImageRequestOptions()
+        var image: UIImage?
+        option.isSynchronous = true
+        manager.requestImage(for: asset!, targetSize: CGSize(width: 224, height: 224), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            image = result
+        })
+        return image
+    }
+    
     func toBuffer(from image: UIImage) -> CVPixelBuffer? {
         let width = 224
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
@@ -36,33 +47,38 @@ class ImageClassifier {
         return pixelBuffer
     }
     
-    func classify(image: UIImage) -> String {
-        let model = MobileNet()
-        let cool_model = bigModel()
-        let pixelBuffer: CVPixelBuffer = toBuffer(from: image)!
-        print(image)
-        if let prediction = try? model.prediction(image: pixelBuffer) {
-            var counter = 0
-            print("\n\n")
-            for (k,v) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
-                counter += 1
-                if counter >= 10 {
-                    break
+    func classify(asset: PHAsset) -> [Category] {
+        let objectsModel = MobileNet()
+        let appNameModel = bigModel()
+        let image = fetchSmallImage(from: asset)
+        let pixelBuffer: CVPixelBuffer = toBuffer(from: image!)!
+        let minProb = 0.8
+        var foundCategories: [Category] = []
+        
+        if let prediction = try? objectsModel.prediction(image: pixelBuffer) {
+            for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
+                if probability >= minProb {
+                    let newCategory = Category()
+                    newCategory.type = .object
+                    newCategory.label = label
+                    foundCategories.append(newCategory)
                 }
-                print("\(k):\(v)")
             }
         }
-        if let prediction = try? cool_model.prediction(image: pixelBuffer) {
-            print("\n\n")
-            var counter = 0
-            for (k,v) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
-                counter += 1
-                if counter >= 10 {
-                    break
+        
+        if let prediction = try? appNameModel.prediction(image: pixelBuffer) {
+            for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
+                if probability >= minProb {
+                    if label != "other" { // Other is used to capture all apps that we're currently not covering
+                        let newCategory = Category()
+                        newCategory.type = .object
+                        newCategory.label = label
+                        foundCategories.append(newCategory)
+                        
+                    }
                 }
-                print("\(k):\(v)")
             }
         }
-        return "hey"
+        return foundCategories
     }
 }
