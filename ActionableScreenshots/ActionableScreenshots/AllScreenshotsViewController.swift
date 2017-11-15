@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import RealmSwift
 
 // Collection depending on environment
 #if (arch(i386) || arch(x86_64)) && os(iOS) // Simulator
@@ -22,13 +23,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     private let reuseIdentifier = "Cell"
     private let SPACE_BETWEEN_CELLS: CGFloat = 3
-    var screenshotsAlbum: PHFetchResult<PHAsset> = PHFetchResult()
-    var screenshotsCollection = [Screenshot]()
-    var filteredScreenshots = [Screenshot]()
+    
+    var screenshotsCollection: Results<Screenshot>?
+    var filteredScreenshots: Results<Screenshot>?
     
     var lastProcessed = Date(timeIntervalSince1970: 0)
-    var nonProcessedScreenshots: PHFetchResult<PHAsset> = PHFetchResult()
-    var processed = 0
     
     var cellSize: CGSize!
     
@@ -37,15 +36,12 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var lbNoPhotos: UILabel!
     
     // MARK: Class overrides
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let last = UserDefaults.standard.value(forKey: "lastProcessedDate") as? Date
-        if last != nil {
-            lastProcessed = last!
-        }
-        initializeScreenshotResults()
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+        
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
         self.searchBar.delegate = self
@@ -54,14 +50,21 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = SPACE_BETWEEN_CELLS
         collectionView!.collectionViewLayout = layout
+        
+        let realm = try! Realm()
+        screenshotsCollection = realm.objects(Screenshot.self)
+        filteredScreenshots = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
+        lastProcessed = (screenshotsCollection?.filter(NSPredicate(format: "processed = true")).max(ofProperty: "creationDate")) ?? Date(timeIntervalSince1970: 0)
+        initializeScreenshotResults()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     // MARK: Photo retrieval
@@ -69,41 +72,44 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     func initializeScreenshotResults() {
         // TODO: Only load screenshots if they haven't been loaded already
         switch PHPhotoLibrary.authorizationStatus() {
-            case .authorized:
-                loadScreenshotAlbum()
-                break
-            case .denied, .restricted:
-                alertRequestAccess()
-                break
-            case .notDetermined:
-                PHPhotoLibrary.requestAuthorization({(newStatus) -> Void in
-                    if newStatus == .authorized {
-                        self.loadScreenshotAlbum()
-                    }
-                    else {
-                        self.alertRequestAccess()
-                    }
-                })
+        case .authorized:
+            loadScreenshotAlbum()
+            break
+        case .denied, .restricted:
+            alertRequestAccess()
+            break
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({(newStatus) -> Void in
+                if newStatus == .authorized {
+                    self.loadScreenshotAlbum()
+                }
+                else {
+                    self.alertRequestAccess()
+                }
+            })
         }
     }
     
     func loadScreenshotAlbum() {
-        screenshotsAlbum = getScreenshotsAlbum()
-        nonProcessedScreenshots = getNonProcessedScreenshots()
+        let realm = try! Realm()
+        let nonProcessedScreenshots = getNonProcessedScreenshots()
         
-        if screenshotsAlbum.count > 0 {
-            for index in 0...screenshotsAlbum.count - 1 {
-                let screenshot = Screenshot(id: String(index))
-                screenshot.text = dummyText(index: index)
-                screenshot.image = screenshotsAlbum[index]
-                screenshotsCollection.append(screenshot)
+        if nonProcessedScreenshots.count > 0 {
+            for index in 0...nonProcessedScreenshots.count - 1 {
+                let screenshot = Screenshot()
+                screenshot.id = nonProcessedScreenshots[index].localIdentifier
+                screenshot.creationDate = nonProcessedScreenshots[index].creationDate!
+                try! realm.write {
+                    realm.add(screenshot, update: true)
+                }
             }
-            collectionView.reloadData()
             DispatchQueue.global(qos: .userInitiated).async {
-                self.processScreenshots()
+                self.processScreenshots(screenshots: nonProcessedScreenshots)
             }
         }
-        filteredScreenshots = screenshotsCollection
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func alertRequestAccess() {
@@ -142,7 +148,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         smartAlbums.enumerateObjects({(collection, index, object) in
             if collection.localizedTitle == collectionTitle {
                 let fetchOptions = PHFetchOptions()
-                fetchOptions.predicate = NSPredicate(format: "creationDate >= %@", self.lastProcessed as CVarArg)
+                fetchOptions.predicate = NSPredicate(format: "creationDate > %@", self.lastProcessed as CVarArg)
                 fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: true)]
                 notProcessed = PHAsset.fetchAssets(in: collection, options: fetchOptions)
             }
@@ -154,7 +160,14 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: Functions for SearchBar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // BUG: (Maybe?) Not sure if nil screenshots with no text make this crash
-        filteredScreenshots = screenshotsCollection.filter{searchText == "" || $0.text!.lowercased().contains(searchText.lowercased())}
+        if searchText == "" {
+            filteredScreenshots = screenshotsCollection
+        }
+        else {
+            let predicate = NSPredicate(format: "text CONTAINS[cd] %@", searchText)
+            filteredScreenshots = screenshotsCollection?.filter(predicate)
+        }
+        
         collectionView.reloadData()
     }
     
@@ -171,27 +184,28 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         
         return CGSize(width: dim, height: dim)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        lbNoPhotos.isHidden = (filteredScreenshots.count != 0)
+        lbNoPhotos.isHidden = (filteredScreenshots?.count != 0)
         
-        return filteredScreenshots.count
+        return filteredScreenshots!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as! CollectionViewCell
-        let screenshot = filteredScreenshots[indexPath.row]
+        let screenshot = filteredScreenshots![indexPath.row]
         
         // Configure the cell
-        let currentImg = getImage(phAsset: screenshot.image!,
-                                  width: cellSize.width,
-                                  height: cellSize.height)
-
+        let fetchOptions = PHImageRequestOptions()
+        fetchOptions.isSynchronous = true
+        fetchOptions.resizeMode = .fast
+        let currentImg = screenshot.getImage(width: cellSize.width, height: cellSize.height, contentMode: .aspectFill, fetchOptions: fetchOptions)
+        
         cell.imgView.image = currentImg
         cell.layer.cornerRadius = 3.1
         
-        if indexPath.row < processed {
+        if screenshot.processed {
             cell.activityIndicator.stopAnimating()
         }
         else {
@@ -201,36 +215,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         return cell
     }
     
-    func getImage(phAsset: PHAsset, width: CGFloat, height: CGFloat) -> UIImage {
-        var img: UIImage!
-        let fetchOptions = PHImageRequestOptions()
-        fetchOptions.isSynchronous = true
-        fetchOptions.resizeMode = .fast
-
-        PHImageManager.default().requestImage(for: phAsset,
-                                              targetSize: CGSize(width: width, height: height),
-                                              contentMode: .aspectFill,
-                                              options: fetchOptions) {
-            (image: UIImage?, info: [AnyHashable: Any]?) -> Void in img = image }
-        
-        return img!
-    }
-    
     // MARK: Navigation
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
-        
-        
-        if selectedImageIndex >= processed {
-            return false
-        }
-        /*
-        if selectedImageIndex < nonProcessedScreenshots.count {
-            return false
-        }*/
-        
-        return true
+        return filteredScreenshots![selectedImageIndex].processed
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -238,11 +227,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         // Pass the selected object to the new view controller.
         let destinationView = segue.destination as! DetailViewController
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
-        let idForImage = filteredScreenshots[selectedImageIndex].image?.localIdentifier
-        print("Selected image index: \(selectedImageIndex)")
-
-        destinationView.screenshot = filteredScreenshots[selectedImageIndex]
-        destinationView.screenshotId = idForImage
+        destinationView.screenshot = filteredScreenshots![selectedImageIndex]
     }
     
     @IBAction func unwindDetail(segueUnwind: UIStoryboardSegue) {
@@ -251,35 +236,26 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     
     // MARK: Processing
     
-    func processScreenshots() {
-        // Do whatever to process screenshots
+    func processScreenshots(screenshots: PHFetchResult<PHAsset>) {
         let ocrProcessor = OCRProcessor()
-        for image in screenshotsCollection {
+        for index in 0...screenshots.count - 1 {
             print("Extracting text from image...")
-            if let extractedText = ocrProcessor.extractText(from: image.image) {
-                image.text = extractedText
+            if let extractedText = ocrProcessor.extractText(from: screenshots[index]) {
+                let realm = try! Realm()
+                let screenshot = realm.object(ofType: Screenshot.self, forPrimaryKey: screenshots[index].localIdentifier) ?? Screenshot()
+                try! realm.write() {
+                    if screenshot.id == nil {
+                        screenshot.id = screenshots[index].localIdentifier
+                        realm.add(screenshot, update: true)
+                    }
+                    screenshot.text = extractedText
+                    screenshot.creationDate = screenshots[index].creationDate!
+                    screenshot.processed = true
+                }
             }
-            processed += 1
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: (.now() + .seconds(1)), execute: {
                 self.collectionView.reloadData()
-            }
-        }
-
-        // Reset nonprocessed
-        self.lastProcessed = Date()
-        UserDefaults.standard.setValue(lastProcessed, forKey: "lastProcessedDate")
-        nonProcessedScreenshots = PHFetchResult()
-    }
-    
-    func dummyText(index: Int) -> String {
-        if (index == 1) {
-            return "Primera"
-        } else if (index == 2) {
-            return "Segunda"
-        } else if (index == 3) {
-            return "Tercera"
-        } else {
-            return "Otras"
+            })
         }
     }
     

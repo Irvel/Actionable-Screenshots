@@ -8,6 +8,9 @@ target 'ActionableScreenshots' do
 
   # Tesseract for iOS Pod
     pod 'TesseractOCRiOS', '4.0.0'
+    
+  # Realm for database
+    pod 'RealmSwift', '3.0.2'
 end
 
 post_install do |installer|

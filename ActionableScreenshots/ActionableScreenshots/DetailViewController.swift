@@ -21,12 +21,7 @@ class DetailViewController: UIViewController {
         
         let fetchOptions = PHImageRequestOptions()
         fetchOptions.isSynchronous = true
-        
-        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [screenshotId], options: nil).firstObject
-        if let targetAsset = asset {
-            // TODO: Display an activity indicator while the high-res image is being loaded and make the request asynchronously
-            PHImageManager.default().requestImage(for: targetAsset, targetSize: CGSize(width: imgView.superview!.frame.size.width, height: imgView.superview!.frame.size.height), contentMode: .aspectFit, options: fetchOptions) { (image: UIImage?, info: [AnyHashable: Any]?) -> Void in self.imgView.image = image }
-        }
+        self.imgView.image = screenshot?.getImage(width: imgView.superview!.frame.size.width, height: imgView.superview!.frame.size.height, contentMode: .aspectFit, fetchOptions: fetchOptions)
     }
 
     override func didReceiveMemoryWarning() {
