@@ -11,17 +11,24 @@ import Photos
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var viewTextButton: UIButton!
     @IBOutlet weak var imgView: UIImageView!
+    
     var screenshot: Screenshot?
     var screenshotId: String!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         
+        if !screenshot!.hasText {
+            viewTextButton.isEnabled = false
+            viewTextButton.alpha = 0.45
+        }
+        
         let fetchOptions = PHImageRequestOptions()
         fetchOptions.isSynchronous = true
-        
         let asset = PHAsset.fetchAssets(withLocalIdentifiers: [screenshotId], options: nil).firstObject
         if let targetAsset = asset {
             // TODO: Display an activity indicator while the high-res image is being loaded and make the request asynchronously

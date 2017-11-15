@@ -79,13 +79,13 @@
 		15135E921F9C289A00556147 /* ActionableScreenshots */ = {
 			isa = PBXGroup;
 			children = (
+				CC5645921FBA4FF2006D4D94 /* Text Processing */,
 				15135E931F9C289A00556147 /* AppDelegate.swift */,
 				15135E971F9C289A00556147 /* AllScreenshotsViewController.swift */,
 				15135E991F9C289A00556147 /* Main.storyboard */,
 				15135EA91F9CED1500556147 /* CollectionViewCell.swift */,
 				15135EA71F9C2F0000556147 /* DetailViewController.swift */,
 				CCCA61B21FB51DB0001E7DBC /* Image Classification */,
-				CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */,
 				15135E9C1F9C289A00556147 /* Assets.xcassets */,
 				CCC1AA5B1F9D3EF4002D2873 /* tessdata */,
 				15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */,
@@ -102,6 +102,14 @@
 				9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		CC5645921FBA4FF2006D4D94 /* Text Processing */ = {
+			isa = PBXGroup;
+			children = (
+				CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */,
+			);
+			path = "Text Processing";
 			sourceTree = "<group>";
 		};
 		CCCA61B21FB51DB0001E7DBC /* Image Classification */ = {
