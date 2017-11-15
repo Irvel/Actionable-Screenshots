@@ -85,6 +85,7 @@ class OCRProcessor {
                 print("Characters detected, extracting text from image...")
                 tesseract.image = image.g8_blackAndWhite()
                 tesseract.recognize()
+                G8Tesseract.clearCache()
                 return tesseract.recognizedText
             }
         }
