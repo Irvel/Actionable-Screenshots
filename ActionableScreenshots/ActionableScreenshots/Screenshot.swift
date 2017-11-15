@@ -48,6 +48,10 @@ class Screenshot:Object {
             realm.add(tag, update: true)
         }
         tag = realm.object(ofType: Tag.self, forPrimaryKey: tag.id)!
-        self.tags.append(tag)
+        try! realm.write {
+            if !self.tags.contains(tag) {
+                self.tags.append(tag)
+            }
+        }
     }
 }

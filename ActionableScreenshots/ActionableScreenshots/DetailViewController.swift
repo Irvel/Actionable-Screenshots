@@ -29,21 +29,31 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if(segue.identifier == "showTags") {
+            let destinationView = segue.destination as! TagsViewController
+            destinationView.screenshot = screenshot
+        }
     }
-    */
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+    }
+    
+    @IBAction func unwindTagsView(segueUnwind: UIStoryboardSegue) {
+        
+    }
+    
+    // MARK: - Button actions
     
     @IBAction func shareButtonTapped(_ sender: Any) {
         let act = UIActivityViewController(activityItems: [self.imgView.image!], applicationActivities: nil)
