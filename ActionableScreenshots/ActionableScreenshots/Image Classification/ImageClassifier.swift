@@ -38,7 +38,7 @@ class ImageClassifier {
     
     func classify(image: UIImage) -> String {
         let model = MobileNet()
-        let cool_model = NiceModel()
+        let cool_model = bigModel()
         let pixelBuffer: CVPixelBuffer = toBuffer(from: image)!
         print(image)
         if let prediction = try? model.prediction(image: pixelBuffer) {

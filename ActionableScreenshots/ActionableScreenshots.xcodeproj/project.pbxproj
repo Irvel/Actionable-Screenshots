@@ -15,8 +15,8 @@
 		15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA71F9C2F0000556147 /* DetailViewController.swift */; };
 		15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA91F9CED1500556147 /* CollectionViewCell.swift */; };
 		9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932FCB11F9D6647001C7005 /* Screenshot.swift */; };
-		CC5645911FB962B3006D4D94 /* NiceModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CC5645901FB962B3006D4D94 /* NiceModel.mlmodel */; };
-		CC93DA851FB954E700478E13 /* lets_see.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CC93DA841FB954E700478E13 /* lets_see.mlmodel */; };
+		CC1A11161FBB984E00F69E83 /* bigModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CC1A11151FBB984D00F69E83 /* bigModel.mlmodel */; };
+		CC1A11181FBB985000F69E83 /* smallModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CC1A11171FBB984F00F69E83 /* smallModel.mlmodel */; };
 		CCC1AA5C1F9D3EF4002D2873 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CCC1AA5B1F9D3EF4002D2873 /* tessdata */; };
 		CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */; };
 		CCCA61AF1FB51D6A001E7DBC /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */; };
@@ -38,8 +38,8 @@
 		9932FCB11F9D6647001C7005 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
 		AE99825839862897ECA3EEC9 /* Pods-ActionableScreenshots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ActionableScreenshots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC5645901FB962B3006D4D94 /* NiceModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = NiceModel.mlmodel; sourceTree = "<group>"; };
-		CC93DA841FB954E700478E13 /* lets_see.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = lets_see.mlmodel; sourceTree = "<group>"; };
+		CC1A11151FBB984D00F69E83 /* bigModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = bigModel.mlmodel; sourceTree = "<group>"; };
+		CC1A11171FBB984F00F69E83 /* smallModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = smallModel.mlmodel; sourceTree = "<group>"; };
 		CCC1AA5B1F9D3EF4002D2873 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRProcessor.swift; sourceTree = "<group>"; };
 		CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
@@ -107,8 +107,8 @@
 		CCCA61B21FB51DB0001E7DBC /* Image Classification */ = {
 			isa = PBXGroup;
 			children = (
-				CC5645901FB962B3006D4D94 /* NiceModel.mlmodel */,
-				CC93DA841FB954E700478E13 /* lets_see.mlmodel */,
+				CC1A11151FBB984D00F69E83 /* bigModel.mlmodel */,
+				CC1A11171FBB984F00F69E83 /* smallModel.mlmodel */,
 				CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */,
 				CCCA61B01FB51DA7001E7DBC /* ImageClassifier.swift */,
 			);
@@ -256,10 +256,10 @@
 				CCCA61B11FB51DA7001E7DBC /* ImageClassifier.swift in Sources */,
 				15135E981F9C289A00556147 /* AllScreenshotsViewController.swift in Sources */,
 				15135E941F9C289A00556147 /* AppDelegate.swift in Sources */,
-				CC5645911FB962B3006D4D94 /* NiceModel.mlmodel in Sources */,
-				CC93DA851FB954E700478E13 /* lets_see.mlmodel in Sources */,
+				CC1A11181FBB985000F69E83 /* smallModel.mlmodel in Sources */,
 				15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
+				CC1A11161FBB984E00F69E83 /* bigModel.mlmodel in Sources */,
 				CCCA61AF1FB51D6A001E7DBC /* MobileNet.mlmodel in Sources */,
 				CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */,
 				9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */,
