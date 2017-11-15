@@ -46,7 +46,14 @@ class TagsViewController: UIViewController, UITableViewDelegate, UITableViewData
         if editingStyle == .delete {
             let realm = try! Realm()
             try! realm.write {
+                let id = screenshot?.tags[indexPath.row].id
                 screenshot?.tags.remove(at: indexPath.row)
+                let deletedTag = realm.object(ofType: Tag.self, forPrimaryKey: id)
+                if deletedTag != nil {
+                    if deletedTag!.screenshots.count == 0 {
+                        realm.delete(deletedTag!)
+                    }
+                }
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
