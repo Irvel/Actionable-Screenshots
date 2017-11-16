@@ -17,7 +17,7 @@ import RealmSwift
     private let collectionTitle = "Screenshots"
 #endif
 
-class CategoriesTableViewController: UITableViewController {
+class CategoriesTableViewController: UITableViewController, UIWithCollection {
     
     var tags: Results<Tag>?
     
@@ -32,6 +32,11 @@ class CategoriesTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        tableView.reloadData()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,6 +59,10 @@ class CategoriesTableViewController: UITableViewController {
         guard let tableViewCell = cell as? CategorViewCell else { return }
         
         tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
+    }
+    
+    func reloadCollection() {
+        tableView.reloadData()
     }
 }
 
@@ -92,6 +101,6 @@ extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionV
         let destinationView = segue.destination as! DetailViewController
         
         destinationView.screenshot = tags![cell.parentTag!].screenshots[cell.row!]
-        destinationView.categoriesView = self
+        destinationView.previousView = self
     }
 }

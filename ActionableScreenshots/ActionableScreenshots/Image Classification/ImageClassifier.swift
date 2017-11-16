@@ -59,10 +59,17 @@ class ImageClassifier {
         if let prediction = try? objectsModel.prediction(image: pixelBuffer) {
             for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
                 if probability >= minProb {
+                    var allLabels = label.components(separatedBy: ", ")
+                    for index in 0...allLabels.count-1 {
+                        let newCategory = Tag()
+                        newCategory.type = .detectedObject
+                        newCategory.id = allLabels[index]
+                        foundTags.append(newCategory)
+                    }/*
                     let newTag = Tag()
                     newTag.type = .detectedObject
                     newTag.id = label
-                    foundTags.append(newTag)
+                    foundTags.append(newTag)*/
                 }
             }
         }

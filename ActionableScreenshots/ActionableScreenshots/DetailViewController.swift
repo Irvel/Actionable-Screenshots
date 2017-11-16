@@ -22,7 +22,6 @@ class DetailViewController: UIViewController {
     var screenshot: Screenshot?
     var screenshotId: String!
     var previousView: UIWithCollection!
-    var categoriesView: CategoriesTableViewController!
 
 
     override func viewDidLoad() {
@@ -104,9 +103,10 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: {
+        /*dismiss(animated: true, completion: {
             self.previousView?.reloadCollection()
             self.categoriesView?.tableView.reloadData()
-        })
+        })*/
+        dismiss(animated: true, completion: nil)
     }
 }

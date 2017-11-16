@@ -70,6 +70,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        filteredScreenshots = Array(filteredScreenshotsQuery!)
         self.collectionView.reloadData()
     }
     
