@@ -7,10 +7,20 @@
 //
 
 import UIKit
+import Photos
+
+// Collection depending on environment
+#if (arch(i386) || arch(x86_64)) && os(iOS) // Simulator
+    private let collectionTitle = "Camera Roll"
+#else   // Device
+    private let collectionTitle = "Screenshots"
+#endif
 
 class CategoriesTableViewController: UITableViewController {
 
     var categories = [String]()
+    
+    var screenshotsAlbum: PHFetchResult<PHAsset> = PHFetchResult()
     var screenshotsCollection = [Screenshot]()
     
     override func viewDidLoad() {
@@ -24,6 +34,8 @@ class CategoriesTableViewController: UITableViewController {
         categories.append("Noche")
         
         self.tableView.separatorStyle = .none
+        
+        loadScreenshotAlbum()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,50 +57,75 @@ class CategoriesTableViewController: UITableViewController {
 
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let tableViewCell = cell as? CategorViewCell else { return }
+        
+        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
     }
-    */
+}
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return screenshotsCollection.count
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photocell", for: indexPath) as! CategoryCollectionViewCell
+        let screenshot = screenshotsCollection[indexPath.row]
+        
+        let currentImg = getImage(phAsset: screenshot.image!,width: 100, height: 100)
+        
+        cell.ivCatScreenshot.image = currentImg
+        cell.layer.cornerRadius = 3.1
+        
+        return cell
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func loadScreenshotAlbum() {
+        screenshotsAlbum = getScreenshotsAlbum()
+        
+        if screenshotsAlbum.count > 0 {
+            for index in 0...screenshotsAlbum.count - 1 {
+                let screenshot = Screenshot(id: String(index))
+                screenshot.image = screenshotsAlbum[index]
+                screenshotsCollection.append(screenshot)
+            }
+        }
     }
-    */
-
+    
+    func getScreenshotsAlbum() -> PHFetchResult<PHAsset> {
+        let smartAlbums:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+        var screenshotsAlbum: PHFetchResult<PHAsset>!
+        
+        smartAlbums.enumerateObjects({(collection, index, object) in
+            if collection.localizedTitle == collectionTitle {
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+                screenshotsAlbum = PHAsset.fetchAssets(in: collection, options: fetchOptions)
+            }
+        })
+        
+        return screenshotsAlbum
+    }
+    
+    func getImage(phAsset: PHAsset, width: CGFloat, height: CGFloat) -> UIImage {
+        var img: UIImage!
+        let fetchOptions = PHImageRequestOptions()
+        fetchOptions.isSynchronous = true
+        fetchOptions.resizeMode = .fast
+        
+        PHImageManager.default().requestImage(for: phAsset,
+                                              targetSize: CGSize(width: width, height: height),
+                                              contentMode: .aspectFill,
+                                              options: fetchOptions) {
+                                                (image: UIImage?, info: [AnyHashable: Any]?) -> Void in img = image }
+        
+        return img!
+    }
 }
