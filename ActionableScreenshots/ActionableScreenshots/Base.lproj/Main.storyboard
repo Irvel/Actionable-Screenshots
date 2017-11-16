@@ -117,15 +117,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="140" id="LBa-vP-5Fb" customClass="CategorViewCell" customModule="ActionableScreenshots" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="140" id="LBa-vP-5Fb" customClass="CategorViewCell" customModule="ActionableScreenshots" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LBa-vP-5Fb" id="as8-Im-QOP">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="U7m-OU-9bP">
-                                            <rect key="frame" x="8" y="34" width="304" height="99"/>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="U7m-OU-9bP">
+                                            <rect key="frame" x="8" y="42" width="304" height="91"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H3D-4z-wXD">
                                                 <size key="itemSize" width="99" height="99"/>
@@ -134,8 +134,8 @@
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="photocell" id="ua8-us-z5A" customClass="CategoryCollectionViewCell" customModule="ActionableScreenshots" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="5" width="89" height="89"/>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="photocell" id="ua8-us-z5A" customClass="CategoryCollectionViewCell" customModule="ActionableScreenshots" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="1" width="89" height="89"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                         <rect key="frame" x="0.0" y="0.0" width="89" height="89"/>
@@ -160,7 +160,7 @@
                                             </cells>
                                         </collectionView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWJ-vf-aCv">
-                                            <rect key="frame" x="8" y="0.0" width="304" height="26"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="cjk-I2-7bG"/>
                                             </constraints>
@@ -173,7 +173,7 @@
                                         <constraint firstItem="U7m-OU-9bP" firstAttribute="top" secondItem="xWJ-vf-aCv" secondAttribute="bottom" constant="8" symbolic="YES" id="KWj-DH-IfV"/>
                                         <constraint firstItem="xWJ-vf-aCv" firstAttribute="leading" secondItem="as8-Im-QOP" secondAttribute="leading" constant="8" id="XeQ-2Y-aLh"/>
                                         <constraint firstAttribute="bottom" secondItem="U7m-OU-9bP" secondAttribute="bottom" constant="6.5" id="Xno-7E-eMc"/>
-                                        <constraint firstItem="xWJ-vf-aCv" firstAttribute="top" secondItem="as8-Im-QOP" secondAttribute="top" id="d9Y-Lj-nK5"/>
+                                        <constraint firstItem="xWJ-vf-aCv" firstAttribute="top" secondItem="as8-Im-QOP" secondAttribute="top" constant="8" id="d9Y-Lj-nK5"/>
                                         <constraint firstAttribute="bottom" secondItem="U7m-OU-9bP" secondAttribute="bottom" constant="6.5" id="e7W-5T-IML"/>
                                         <constraint firstItem="xWJ-vf-aCv" firstAttribute="leading" secondItem="U7m-OU-9bP" secondAttribute="leading" id="msb-9J-bXn"/>
                                         <constraint firstAttribute="trailing" secondItem="xWJ-vf-aCv" secondAttribute="trailing" constant="8" id="tYb-nc-TDT"/>
