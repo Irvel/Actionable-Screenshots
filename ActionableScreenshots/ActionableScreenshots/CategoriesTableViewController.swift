@@ -60,7 +60,8 @@ class CategoriesTableViewController: UITableViewController {
 extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags![section].screenshots.count
+        let cnt = tags![collectionView.tag].screenshots.count
+        return tags![collectionView.tag].screenshots.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -81,7 +82,6 @@ extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
