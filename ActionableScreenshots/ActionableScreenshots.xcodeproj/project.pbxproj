@@ -101,7 +101,6 @@
 				15135EA71F9C2F0000556147 /* DetailViewController.swift */,
 				152428A51FBC88540015A9FE /* TagsViewController.swift */,
 				15135E9C1F9C289A00556147 /* Assets.xcassets */,
-				CCC1AA5B1F9D3EF4002D2873 /* tessdata */,
 				15135E9E1F9C289A00556147 /* LaunchScreen.storyboard */,
 				15135EA11F9C289A00556147 /* Info.plist */,
 				995E5DA11FBD273C007D1F41 /* CategoryCollectionViewCell.swift */,
@@ -121,6 +120,7 @@
 		CC5645921FBA4FF2006D4D94 /* Text Processing */ = {
 			isa = PBXGroup;
 			children = (
+				CCC1AA5B1F9D3EF4002D2873 /* tessdata */,
 				CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */,
 			);
 			path = "Text Processing";
