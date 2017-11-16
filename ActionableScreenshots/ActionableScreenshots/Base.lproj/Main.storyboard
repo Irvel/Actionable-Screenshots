@@ -155,6 +155,7 @@
                                                     <size key="customSize" width="89" height="89"/>
                                                     <connections>
                                                         <outlet property="ivCatScreenshot" destination="tmv-3m-0gi" id="KRy-Ue-hY7"/>
+                                                        <segue destination="Ejx-rm-Gle" kind="presentation" id="Pmc-M1-oIg"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -338,4 +339,7 @@
     <resources>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pmc-M1-oIg"/>
+    </inferredMetricsTieBreakers>
 </document>

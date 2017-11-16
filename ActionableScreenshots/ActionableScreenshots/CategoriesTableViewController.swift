@@ -128,4 +128,15 @@ extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionV
         
         return img!
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+        let destinationView = segue.destination as! DetailViewController
+        let selectedImageIndex = 0
+        let idForImage = screenshotsCollection[selectedImageIndex].image?.localIdentifier
+        
+        destinationView.screenshot = screenshotsCollection[selectedImageIndex]
+        destinationView.screenshotId = idForImage
+    }
 }
