@@ -18,10 +18,12 @@ import RealmSwift
 #endif
 
 class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchDisplayDelegate, UIWithCollection {
+    
     func reloadCollection() {
+        filteredScreenshots = Array(filteredScreenshotsQuery!)
+        collectionView.reloadData()
     }
     
-
     // MARK: Class variables
 
     private let reuseIdentifier = "Cell"
@@ -252,28 +254,23 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         let classifier = ImageClassifier()
         
         for index in 0...screenshots.count - 1 {
-            print("Extracting text from image...")
-            if let extractedText = ocrProcessor.extractText(from: screenshots[index]) {
-                let realm = try! Realm()
-                let screenshot = realm.object(ofType: Screenshot.self, forPrimaryKey: screenshots[index].localIdentifier) ?? Screenshot()
-                try! realm.write() {
-                    if screenshot.id == nil {
-                        screenshot.id = screenshots[index].localIdentifier
-                        realm.add(screenshot, update: true)
-                    }
-                    screenshot.text = extractedText
-                    screenshot.creationDate = screenshots[index].creationDate!
-                    screenshot.processed = true
-                }
-            }
+            let extractedText = ocrProcessor.extractText(from: screenshots[index])
             let mlCategories = classifier.classify(asset: screenshots[index])
+            let realm = try! Realm()
+            let screenshot = realm.object(ofType: Screenshot.self, forPrimaryKey: screenshots[index].localIdentifier) ?? Screenshot()
+            try! realm.write() {
+                if screenshot.id == nil {
+                    screenshot.id = screenshots[index].localIdentifier
+                    realm.add(screenshot, update: true)
+                }
+                screenshot.text = extractedText
+                screenshot.creationDate = screenshots[index].creationDate!
+                screenshot.processed = true
+            }
             if mlCategories.count > 0 {
                 print("Identified the following categories: \(mlCategories)")
-                let realm = try! Realm()
-                let screenshot = realm.object(ofType: Screenshot.self, forPrimaryKey: screenshots[index].localIdentifier) ?? Screenshot()
                 screenshot.addTags(from: mlCategories)
             }
-
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
