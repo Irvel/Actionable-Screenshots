@@ -9,7 +9,7 @@ import Foundation
 import Photos
 
 class ImageClassifier {
-    
+
     func fetchSmallImage (from asset: PHAsset?) -> UIImage? {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
@@ -20,7 +20,7 @@ class ImageClassifier {
         })
         return image
     }
-    
+
     func toBuffer(from image: UIImage) -> CVPixelBuffer? {
         let width = 224
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
@@ -29,56 +29,55 @@ class ImageClassifier {
         guard (status == kCVReturnSuccess) else {
             return nil
         }
-        
+
         CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
         let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
-        
+
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
         let context = CGContext(data: pixelData, width: width, height: width, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
-        
+
         context?.translateBy(x: 0, y: CGFloat(width))
         context?.scaleBy(x: 1.0, y: -1.0)
-        
+
         UIGraphicsPushContext(context!)
         image.draw(in: CGRect(x: 0, y: 0, width: width, height: width))
         UIGraphicsPopContext()
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
-        
+
         return pixelBuffer
     }
-    
-    func classify(asset: PHAsset) -> [Category] {
+
+    func classify(asset: PHAsset) -> [Tag] {
         let objectsModel = MobileNet()
         let appNameModel = bigModel()
         let image = fetchSmallImage(from: asset)
         let pixelBuffer: CVPixelBuffer = toBuffer(from: image!)!
-        let minProb = 0.8
-        var foundCategories: [Category] = []
-        
+        let minProb = 0.55
+        var foundTags: [Tag] = []
+
         if let prediction = try? objectsModel.prediction(image: pixelBuffer) {
             for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
                 if probability >= minProb {
-                    let newCategory = Category()
-                    newCategory.type = .object
-                    newCategory.label = label
-                    foundCategories.append(newCategory)
+                    let newTag = Tag()
+                    newTag.type = .detectedObject
+                    newTag.id = label
+                    foundTags.append(newTag)
                 }
             }
         }
-        
+
         if let prediction = try? appNameModel.prediction(image: pixelBuffer) {
             for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
                 if probability >= minProb {
                     if label != "other" { // Other is used to capture all apps that we're currently not covering
-                        let newCategory = Category()
-                        newCategory.type = .object
-                        newCategory.label = label
-                        foundCategories.append(newCategory)
-                        
+                        let newTag = Tag()
+                        newTag.type = .detectedApplication
+                        newTag.id = label
+                        foundTags.append(newTag)
                     }
                 }
             }
         }
-        return foundCategories
+        return foundTags
     }
 }

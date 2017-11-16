@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import RealmSwift
 
 // Collection depending on environment
 #if (arch(i386) || arch(x86_64)) && os(iOS) // Simulator
@@ -17,25 +18,16 @@ import Photos
 #endif
 
 class CategoriesTableViewController: UITableViewController {
-
-    var categories = [String]()
     
-    var screenshotsAlbum: PHFetchResult<PHAsset> = PHFetchResult()
-    var screenshotsCollection = [Screenshot]()
+    var tags: Results<Tag>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        categories.append("Perros")
-        categories.append("Gato")
-        categories.append("Montaña")
-        categories.append("Mexico")
-        categories.append("Tec")
-        categories.append("Facebook")
-        categories.append("Noche")
         
         self.tableView.separatorStyle = .none
         
-        loadScreenshotAlbum()
+        let realm = try! Realm()
+        tags = realm.objects(Tag.self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,13 +35,13 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return tags!.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CategorViewCell
 
-        cell.lbCategory.text = categories[indexPath.row]
+        cell.lbCategory.text = tags![indexPath.row].id
 
         return cell
     }
@@ -68,75 +60,37 @@ class CategoriesTableViewController: UITableViewController {
 extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return screenshotsCollection.count
+        return tags![section].screenshots.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photocell", for: indexPath) as! CategoryCollectionViewCell
-        let screenshot = screenshotsCollection[indexPath.row]
+        let screenshot = tags![collectionView.tag].screenshots[indexPath.row]
         
-        let currentImg = getImage(phAsset: screenshot.image!,width: 100, height: 100)
+        let fetchOptions = PHImageRequestOptions()
+        fetchOptions.isSynchronous = true
+        fetchOptions.resizeMode = .fast
+        let currentImg = screenshot.getImage(width: 100, height: 100, contentMode: .aspectFill, fetchOptions: fetchOptions)
         
         cell.ivCatScreenshot.image = currentImg
         cell.layer.cornerRadius = 3.1
+        cell.parentTag = collectionView.tag
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
-    }
-    
-    func loadScreenshotAlbum() {
-        screenshotsAlbum = getScreenshotsAlbum()
         
-        if screenshotsAlbum.count > 0 {
-            for index in 0...screenshotsAlbum.count - 1 {
-                let screenshot = Screenshot(id: String(index))
-                screenshot.image = screenshotsAlbum[index]
-                screenshotsCollection.append(screenshot)
-            }
-        }
-    }
-    
-    func getScreenshotsAlbum() -> PHFetchResult<PHAsset> {
-        let smartAlbums:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
-        var screenshotsAlbum: PHFetchResult<PHAsset>!
-        
-        smartAlbums.enumerateObjects({(collection, index, object) in
-            if collection.localizedTitle == collectionTitle {
-                let fetchOptions = PHFetchOptions()
-                fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
-                screenshotsAlbum = PHAsset.fetchAssets(in: collection, options: fetchOptions)
-            }
-        })
-        
-        return screenshotsAlbum
-    }
-    
-    func getImage(phAsset: PHAsset, width: CGFloat, height: CGFloat) -> UIImage {
-        var img: UIImage!
-        let fetchOptions = PHImageRequestOptions()
-        fetchOptions.isSynchronous = true
-        fetchOptions.resizeMode = .fast
-        
-        PHImageManager.default().requestImage(for: phAsset,
-                                              targetSize: CGSize(width: width, height: height),
-                                              contentMode: .aspectFill,
-                                              options: fetchOptions) {
-                                                (image: UIImage?, info: [AnyHashable: Any]?) -> Void in img = image }
-        
-        return img!
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
-        let destinationView = segue.destination as! DetailViewController
-        let selectedImageIndex = 0
-        let idForImage = screenshotsCollection[selectedImageIndex].image?.localIdentifier
+        let cell = sender as! CategoryCollectionViewCell
         
-        destinationView.screenshot = screenshotsCollection[selectedImageIndex]
-        destinationView.screenshotId = idForImage
+        let destinationView = segue.destination as! DetailViewController
+        
+        destinationView.screenshot = tags![cell.parentTag!].screenshots[0]
     }
 }
