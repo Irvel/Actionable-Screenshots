@@ -8,12 +8,18 @@
 
 import UIKit
 import Photos
+import RealmSwift
+
+protocol UIWithCollection {
+    func reloadCollection()
+}
 
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var imgView: UIImageView!
     var screenshot: Screenshot?
     var screenshotId: String!
+    var previousView: UIWithCollection!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,5 +82,16 @@ class DetailViewController: UIViewController {
         }
     }
     
-
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        self.screenshot?.deleteImageFromDevice()
+        
+        dismiss(animated: true, completion: {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.delete(self.screenshot!)
+            }
+            self.previousView.reloadCollection()
+        })
+    }
+    
 }

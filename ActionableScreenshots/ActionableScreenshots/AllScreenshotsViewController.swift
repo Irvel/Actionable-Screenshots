@@ -17,7 +17,7 @@ import RealmSwift
     private let collectionTitle = "Screenshots"
 #endif
 
-class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchDisplayDelegate {
+class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchDisplayDelegate, UIWithCollection {
     
     // MARK: Class variables
     
@@ -66,7 +66,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        self.collectionView.reloadData()
     }
     
     // MARK: Photo retrieval
@@ -110,6 +110,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
             }
         }
         DispatchQueue.main.async {
+            self.filteredScreenshots = Array(self.filteredScreenshotsQuery!)
             self.collectionView.reloadData()
         }
     }
@@ -234,6 +235,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         let destinationView = segue.destination as! DetailViewController
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
         destinationView.screenshot = filteredScreenshots![selectedImageIndex]
+        destinationView.previousView = self
     }
     
     @IBAction func unwindDetail(segueUnwind: UIStoryboardSegue) {
@@ -263,6 +265,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    func reloadCollection() {
+        filteredScreenshots = Array(filteredScreenshotsQuery!)
+        collectionView.reloadData()
     }
     
 }

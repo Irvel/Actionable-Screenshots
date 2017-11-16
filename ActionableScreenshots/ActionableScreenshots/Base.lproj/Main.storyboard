@@ -183,6 +183,16 @@
                                             <segue destination="oBJ-ls-jXQ" kind="presentation" identifier="showTags" modalTransitionStyle="flipHorizontal" id="3aa-e5-Bka"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3H5-HD-mTS">
+                                        <rect key="frame" x="17" y="8" width="45" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteButtonTapped:" destination="Ejx-rm-Gle" eventType="touchUpInside" id="Uua-Cr-Wff"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.59107661249999999" green="0.62285321950000005" blue="0.66861206289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>

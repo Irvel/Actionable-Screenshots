@@ -54,4 +54,18 @@ class Screenshot:Object {
             }
         }
     }
+    
+    func deleteImageFromDevice() {
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [id!], options: nil).firstObject
+        if let targetAsset = asset {
+            let enumeration: NSArray = [targetAsset]
+            do {
+                try PHPhotoLibrary.shared().performChangesAndWait {
+                    PHAssetChangeRequest.deleteAssets(enumeration)
+                }
+            } catch {
+                assert(true)
+            }
+        }
+    }
 }
