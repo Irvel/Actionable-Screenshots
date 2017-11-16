@@ -50,7 +50,7 @@ class OCRProcessor {
         let request:VNDetectTextRectanglesRequest = VNDetectTextRectanglesRequest.init(completionHandler: { (request, error) in
             if( (error) == nil) {
                 if let result = request.results {
-                    if result.count > 0 {
+                    if result.count > 3 {
                         detectedText = true
                     }
                 }
