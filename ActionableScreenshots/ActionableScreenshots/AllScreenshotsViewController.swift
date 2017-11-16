@@ -57,13 +57,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         layout.minimumLineSpacing = SPACE_BETWEEN_CELLS
         collectionView!.collectionViewLayout = layout
         searchBar.autocapitalizationType = .none
-
-        let realm = try! Realm()
-        screenshotsCollection = realm.objects(Screenshot.self)
-        filteredScreenshotsQuery = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
-        filteredScreenshots = Array(filteredScreenshotsQuery!)
-        lastProcessed = (screenshotsCollection?.filter(NSPredicate(format: "processed = true")).max(ofProperty: "creationDate")) ?? Date(timeIntervalSince1970: 0)
-        initializeScreenshotResults()
+        
+        // Register callback refresh screenshots when resuming from background
+        NotificationCenter.default.addObserver(self, selector:#selector(refreshScreenshots), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+        refreshScreenshots()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,11 +72,24 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     override func viewDidAppear(_ animated: Bool) {
         self.collectionView.reloadData()
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     // MARK: Photo retrieval
+    
+    @objc func refreshScreenshots() {
+        let realm = try! Realm()
+        screenshotsCollection = realm.objects(Screenshot.self)
+        filteredScreenshotsQuery = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
+        filteredScreenshots = Array(filteredScreenshotsQuery!)
+        lastProcessed = (screenshotsCollection?.filter(NSPredicate(format: "processed = true")).max(ofProperty: "creationDate")) ?? Date(timeIntervalSince1970: 0)
+        initializeScreenshotResults()
+        self.collectionView.reloadData()
+    }
 
     func initializeScreenshotResults() {
-        // TODO: Only load screenshots if they haven't been loaded already
         switch PHPhotoLibrary.authorizationStatus() {
         case .authorized:
             loadScreenshotAlbum()
@@ -200,8 +211,10 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         lbNoPhotos.isHidden = (filteredScreenshots?.count != 0)
-
-        return filteredScreenshots!.count
+        if let filtered = filteredScreenshots {
+            return filtered.count
+        }
+        return 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
