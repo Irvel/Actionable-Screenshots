@@ -60,7 +60,6 @@ class CategoriesTableViewController: UITableViewController {
 extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let cnt = tags![collectionView.tag].screenshots.count
         return tags![collectionView.tag].screenshots.count
     }
     
@@ -93,5 +92,6 @@ extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionV
         let destinationView = segue.destination as! DetailViewController
         
         destinationView.screenshot = tags![cell.parentTag!].screenshots[cell.row!]
+        destinationView.categoriesView = self
     }
 }

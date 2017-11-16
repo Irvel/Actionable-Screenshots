@@ -216,7 +216,7 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="ghe-tH-5by" kind="unwind" unwindAction="unwindDetailWithSegueUnwind:" id="S6f-xy-g8Q"/>
+                                            <action selector="backButtonTapped:" destination="Ejx-rm-Gle" eventType="touchUpInside" id="knQ-dN-wvP"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d40-sM-Y0F">
@@ -316,7 +316,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAo-XV-3uy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="ghe-tH-5by" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2252" y="65"/>
         </scene>
