@@ -50,6 +50,7 @@ class ImageClassifier {
     func classify(asset: PHAsset) -> [Tag] {
         let objectsModel = MobileNet()
         let appNameModel = bigModel()
+        let placesModel = GoogLeNetPlaces()
         let image = fetchSmallImage(from: asset)
         let pixelBuffer: CVPixelBuffer = toBuffer(from: image!)!
         let minProb = 0.55
@@ -68,10 +69,23 @@ class ImageClassifier {
 
         if let prediction = try? appNameModel.prediction(image: pixelBuffer) {
             for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
-                if probability >= minProb {
-                    if label != "other" { // Other is used to capture all apps that we're currently not covering
+                if probability >= 0.3{
+                    if label != "other" && label != "meme" { // Other is used to capture all apps that we're currently not covering
                         let newTag = Tag()
                         newTag.type = .detectedApplication
+                        newTag.id = label
+                        foundTags.append(newTag)
+                    }
+                }
+            }
+        }
+        
+        if let prediction = try? placesModel.prediction(sceneImage: pixelBuffer) {
+            for (label, probability) in (Array(prediction.sceneLabelProbs).sorted {$0.1 > $1.1}) {
+                if probability >= minProb {
+                    if label != "other" {
+                        let newTag = Tag()
+                        newTag.type = .detectedObject
                         newTag.id = label
                         foundTags.append(newTag)
                     }
