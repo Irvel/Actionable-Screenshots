@@ -12,4 +12,5 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var ivCatScreenshot: UIImageView!
     
     var parentTag: Int!
+    var row: Int!
 }

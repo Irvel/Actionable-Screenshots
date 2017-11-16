@@ -76,6 +76,7 @@ extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionV
         cell.ivCatScreenshot.image = currentImg
         cell.layer.cornerRadius = 3.1
         cell.parentTag = collectionView.tag
+        cell.row = indexPath.row
         
         return cell
     }
@@ -91,6 +92,6 @@ extension CategoriesTableViewController: UICollectionViewDelegate, UICollectionV
         
         let destinationView = segue.destination as! DetailViewController
         
-        destinationView.screenshot = tags![cell.parentTag!].screenshots[0]
+        destinationView.screenshot = tags![cell.parentTag!].screenshots[cell.row!]
     }
 }
