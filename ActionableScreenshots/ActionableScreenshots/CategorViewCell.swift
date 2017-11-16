@@ -25,7 +25,6 @@ class CategorViewCell: UITableViewCell {
 
     func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>
         (dataSourceDelegate: D, forRow row: Int) {
-        
         cvScreenshots.delegate = dataSourceDelegate
         cvScreenshots.dataSource = dataSourceDelegate
         cvScreenshots.tag = row
