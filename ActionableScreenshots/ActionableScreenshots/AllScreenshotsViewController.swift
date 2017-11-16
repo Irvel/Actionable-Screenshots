@@ -56,6 +56,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = SPACE_BETWEEN_CELLS
         collectionView!.collectionViewLayout = layout
+        searchBar.autocapitalizationType = .none
 
         let realm = try! Realm()
         screenshotsCollection = realm.objects(Screenshot.self)
