@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -263,9 +263,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bn6-D1-kmg">
                                 <rect key="frame" x="0.0" y="523" width="320" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Je4-xj-La1">
-                                        <rect key="frame" x="171" y="7" width="33" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Je4-xj-La1">
+                                        <rect key="frame" x="143.5" y="8" width="33" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Ccy-dy-bgJ"/>
+                                            <constraint firstAttribute="width" constant="33" id="MdS-5i-QKS"/>
+                                        </constraints>
                                         <state key="normal" title="Tags">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -273,9 +276,12 @@
                                             <segue destination="oBJ-ls-jXQ" kind="presentation" identifier="showTags" modalTransitionStyle="flipHorizontal" id="3aa-e5-Bka"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3H5-HD-mTS">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3H5-HD-mTS">
                                         <rect key="frame" x="17" y="8" width="45" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="HCw-Q2-So9"/>
+                                            <constraint firstAttribute="width" constant="45" id="woA-Mn-Kdx"/>
+                                        </constraints>
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -285,6 +291,12 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.59107661249999999" green="0.62285321950000005" blue="0.66861206289999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="3H5-HD-mTS" firstAttribute="leading" secondItem="bn6-D1-kmg" secondAttribute="leading" constant="17" id="UoI-wH-kPB"/>
+                                    <constraint firstAttribute="bottom" secondItem="Je4-xj-La1" secondAttribute="bottom" constant="7" id="X3P-N5-9La"/>
+                                    <constraint firstItem="Je4-xj-La1" firstAttribute="centerX" secondItem="bn6-D1-kmg" secondAttribute="centerX" id="bny-eG-fVb"/>
+                                    <constraint firstAttribute="bottom" secondItem="3H5-HD-mTS" secondAttribute="bottom" constant="7" id="lba-Xz-hT9"/>
+                                </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jzK-vO-cyK">
                                 <rect key="frame" x="16" y="73" width="288" height="442"/>
@@ -408,7 +420,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbD-ir-iv5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="c4h-PU-beS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2792.8000000000002" y="-1.3493253373313345"/>
+            <point key="canvasLocation" x="3229" y="18"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
