@@ -434,6 +434,7 @@
                     <connections>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="QT5-0V-Olg" kind="relationship" relationship="viewControllers" id="8ln-E9-MrE"/>
+                        <segue destination="5lu-pf-2y0" kind="relationship" relationship="viewControllers" id="QtD-cm-oeI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -458,6 +459,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cjA-CL-Rae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="471" y="824"/>
+        </scene>
+        <!--Créditos-->
+        <scene sceneID="gPi-Y2-KZN">
+            <objects>
+                <viewController id="5lu-pf-2y0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AoP-X8-cX8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZF2-kP-EbN">
+                                <rect key="frame" x="20" y="70" width="280" height="429"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Créditos:Actionable Screenshots ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Agosto Diciembre de 2017, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.Desarrolladores:Irvel Nduva MatíasJesús Alejandro GalvánJorge GilActionable Screenshots se distribuye como está de manera gratuita y se prohíbe su distribución y uso con fines de lucro.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZF2-kP-EbN" firstAttribute="top" secondItem="DKa-lL-wX2" secondAttribute="top" constant="50" id="2kB-dr-CNN"/>
+                            <constraint firstItem="DKa-lL-wX2" firstAttribute="bottom" secondItem="ZF2-kP-EbN" secondAttribute="bottom" constant="20" id="6dV-th-xib"/>
+                            <constraint firstItem="ZF2-kP-EbN" firstAttribute="leading" secondItem="DKa-lL-wX2" secondAttribute="leading" constant="20" id="s2P-vl-NuR"/>
+                            <constraint firstItem="DKa-lL-wX2" firstAttribute="trailing" secondItem="ZF2-kP-EbN" secondAttribute="trailing" constant="20" id="xKt-7q-V9c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DKa-lL-wX2"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Créditos" id="ps2-Q2-vPp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JoE-0n-7V7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="515.625" y="1707.0422535211267"/>
         </scene>
     </scenes>
     <resources>
