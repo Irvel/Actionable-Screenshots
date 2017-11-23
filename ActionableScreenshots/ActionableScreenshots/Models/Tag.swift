@@ -15,6 +15,9 @@ enum TagType: String {
     case userInput
 }
 
+/**
+ Store a semantic classification or Tag
+ */
 class Tag:Object {
     private var _type: TagType?
     var type: TagType? {

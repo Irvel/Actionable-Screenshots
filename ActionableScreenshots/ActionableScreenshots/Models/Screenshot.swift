@@ -10,6 +10,9 @@ import UIKit
 import Photos
 import RealmSwift
 
+/**
+ Store the raw image of a screenshot with it's metadata.
+ */
 class Screenshot:Object {
     @objc dynamic var id: String?
     @objc dynamic var text: String?
@@ -27,6 +30,17 @@ class Screenshot:Object {
         return "id"
     }
 
+    /**
+     Fetches the UI image associated with this Screenshot instance
+     - Parameters:
+        - width: The target width of the image file to fetch
+        - height: The target height of the image file to fetch
+        - contentMode: Options for fitting an image’s aspect ratio to a requested size
+        - fetchOptions: A set of options affecting the delivery of the image
+     
+     - Returns
+        - The obtained UIImage
+     */
     func getImage(width: CGFloat, height: CGFloat, contentMode: PHImageContentMode, fetchOptions: PHImageRequestOptions? = nil) -> UIImage? {
         let asset = PHAsset.fetchAssets(withLocalIdentifiers: [id!], options: nil).firstObject
         var imageResult: UIImage?
@@ -41,6 +55,9 @@ class Screenshot:Object {
         return imageResult
     }
 
+    /**
+     Associate a new Tag with this Screenshot instance
+     */
     func addTag(tagString: String) {
         var tag = Tag()
         tag.id = tagString
@@ -57,6 +74,9 @@ class Screenshot:Object {
         }
     }
 
+    /**
+     Associate a list of Tags with this Screenshot instance
+     */
     func addTags(from tagList: [Tag]) {
         let realm = try! Realm()
         try! realm.write {
@@ -74,6 +94,9 @@ class Screenshot:Object {
         }
     }
 
+    /**
+     Request the deletion of this image asset from the device
+     */
     func deleteImageFromDevice() {
         let asset = PHAsset.fetchAssets(withLocalIdentifiers: [id!], options: nil).firstObject
         if let targetAsset = asset {

@@ -13,16 +13,12 @@ import Vision
 import CoreML
 
 
-
+/**
+ A class that converts image characters into text
+ */
 class OCRProcessor {
     
     private let tesseract: G8Tesseract
-    
-    lazy var textRectangleRequest: VNDetectTextRectanglesRequest = {
-        let textRequest = VNDetectTextRectanglesRequest(completionHandler: nil)
-        textRequest.reportCharacterBoxes = true
-        return textRequest
-    }()
     
     init() {
         // TODO: Set the language dynamically based on the system's language
@@ -43,14 +39,23 @@ class OCRProcessor {
         return image
     }
     
-    func detectText (dectect_image:UIImage) -> Bool {
-        let handler:VNImageRequestHandler = VNImageRequestHandler.init(cgImage: (dectect_image.cgImage)!)
+    /**
+     Identify whether a an image contains text or not
+     - Parameters:
+        - image: The image that potentially contains text or not
+
+     - Result
+        - True if the image contained text
+     */
+    func detectText (in image: UIImage) -> Bool {
+        let minCharThres = 3
+        let handler:VNImageRequestHandler = VNImageRequestHandler.init(cgImage: (image.cgImage)!)
         var detectedText = false
         
         let request:VNDetectTextRectanglesRequest = VNDetectTextRectanglesRequest.init(completionHandler: { (request, error) in
             if( (error) == nil) {
                 if let result = request.results {
-                    if result.count > 3 {
+                    if result.count > minCharThres {
                         detectedText = true
                     }
                 }
@@ -62,10 +67,19 @@ class OCRProcessor {
         return detectedText
     }
     
+    /**
+     Extract text from an image with Tesseract OCR
+     Only extracts characters when it is able to detect text in the image.
+     - Parameters:
+     - image: The image to extract text from
+
+     - Result
+        - The extracted text as a String
+     */
     func extractText(from asset: PHAsset?) -> String? {
         // TODO: Add image-preprocessing step
         if let image = fetchImage(from: asset) {
-            if detectText(dectect_image: image) {
+            if detectText(in: image) {
                 print("Characters detected, extracting text from image...")
                 tesseract.image = image.g8_blackAndWhite()
                 tesseract.recognize()

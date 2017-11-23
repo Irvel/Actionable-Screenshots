@@ -24,6 +24,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.reloadData()
     }
     
+    
     // MARK: Class variables
 
     private let reuseIdentifier = "Cell"
@@ -41,6 +42,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var lbNoPhotos: UILabel!
 
+    
     // MARK: Class overrides
 
     override func viewDidLoad() {
@@ -66,7 +68,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -78,6 +79,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         NotificationCenter.default.removeObserver(self)
     }
 
+    
     // MARK: Photo retrieval
     
     @objc func refreshScreenshots() {
@@ -133,6 +135,9 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
 
+    /**
+     Present a dialog for requesting access to Photos
+     */
     func alertRequestAccess() {
         let alert = UIAlertController(title: "Error", message: "This app is not authorized to access your photos, please give access to continue.", preferredStyle: .alert)
 
@@ -147,21 +152,9 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         self.present(alert, animated: true, completion: nil)
     }
 
-    func getScreenshotsAlbum() -> PHFetchResult<PHAsset> {
-        let smartAlbums:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
-        var screenshotsAlbum: PHFetchResult<PHAsset>!
-
-        smartAlbums.enumerateObjects({(collection, index, object) in
-            if collection.localizedTitle == collectionTitle {
-                let fetchOptions = PHFetchOptions()
-                fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
-                screenshotsAlbum = PHAsset.fetchAssets(in: collection, options: fetchOptions)
-            }
-        })
-
-        return screenshotsAlbum
-    }
-
+    /**
+     Returns a list of image assets that have not been classified for information
+     */
     func getNonProcessedScreenshots() -> PHFetchResult<PHAsset> {
         var notProcessed: PHFetchResult<PHAsset>!
         let smartAlbums:PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
@@ -177,10 +170,11 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
 
         return notProcessed
     }
+    
 
     // MARK: Functions for SearchBar
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // BUG: (Maybe?) Not sure if nil screenshots with no text make this crash
         if searchText == "" {
             filteredScreenshotsQuery = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
             filteredScreenshots = Array(filteredScreenshotsQuery!)
@@ -196,6 +190,7 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.reloadData()
     }
 
+    
     // MARK: Functions for CollectionView
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -250,8 +245,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
         let destinationView = segue.destination as! DetailViewController
         let selectedImageIndex = (collectionView.indexPathsForSelectedItems!.first?.row)!
         destinationView.screenshot = filteredScreenshots![selectedImageIndex]
@@ -264,6 +257,16 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
 
     // MARK: Processing
 
+    /**
+     Extracts semantic information from a set of screenshots
+     
+     Extracts text with OCR of those screenshots that contain text and uses
+     the visual content of the image to identify in which category does
+     it belong.
+     - Parameters:
+        - screenshots: A set of PHAsset to fetch the images from
+
+     */
     func processScreenshots(screenshots: PHFetchResult<PHAsset>) {
         let ocrProcessor = OCRProcessor()
         let classifier = ImageClassifier()
