@@ -55,8 +55,6 @@ def load_single_image(source_image, img_size=(224, 224)):
                            3])  # Remove any alpha channel
     image = np.array(image_background) / 255.
     single_image[0] = image
-
-
     return single_image
 
 def make_test_train_set(source_dir, target_size, split_ratio=.17, img_size=(224, 224)):

@@ -56,11 +56,10 @@ class ImageClassifier {
 
     func classify(asset: PHAsset) -> [Tag] {
         let objectsModel = MobileNet()
-        let appNameModel = muchBetter()
-        let placesModel = GoogLeNetPlaces()
+        let appNameModel = AppCategorizer()
         let image = fetchSmallImage(from: asset)
         let pixelBuffer: CVPixelBuffer = toBuffer(from: image!)!
-        let minProb = 0.67
+        let minProb = 0.65
         var foundTags: [Tag] = []
 
         if let prediction = try? objectsModel.prediction(image: pixelBuffer) {
@@ -83,19 +82,6 @@ class ImageClassifier {
                         print(probability)
                         let newTag = Tag()
                         newTag.type = .detectedApplication
-                        newTag.id = label
-                        foundTags.append(newTag)
-                    }
-                }
-            }
-        }
-        
-        if let prediction = try? placesModel.prediction(sceneImage: pixelBuffer) {
-            for (label, probability) in (Array(prediction.sceneLabelProbs).sorted {$0.1 > $1.1}) {
-                if probability >= minProb {
-                    if label != "other" {
-                        let newTag = Tag()
-                        newTag.type = .detectedObject
                         newTag.id = label
                         foundTags.append(newTag)
                     }
