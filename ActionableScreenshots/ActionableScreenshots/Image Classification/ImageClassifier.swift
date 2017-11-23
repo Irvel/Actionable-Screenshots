@@ -21,11 +21,17 @@ class ImageClassifier {
         return image
     }
 
+    /**
+     Converts a UIImage to a CVPixelBuffer
+     - Parameters:
+        - image: The image to be converted
+     */
     func toBuffer(from image: UIImage) -> CVPixelBuffer? {
-        let width = 224
+        let width = Int(image.size.width)
+        let height = Int(image.size.height)
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
         var pixelBuffer : CVPixelBuffer?
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, width, width, kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
         }
