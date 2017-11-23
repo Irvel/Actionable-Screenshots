@@ -10,6 +10,11 @@ import Photos
 
 class ImageClassifier {
 
+    /**
+     Fetches a 224 X 224 image thumbnail for a given asset as source
+     - Parameters:
+        - asset: The storage asset identifier to request the image from
+     */
     func fetchSmallImage (from asset: PHAsset?) -> UIImage? {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
@@ -54,6 +59,17 @@ class ImageClassifier {
         return pixelBuffer
     }
 
+    /**
+     Identifies semantic information from a given image
+     It uses 2 classifers.
+        - Mobilenet: https://arxiv.org/abs/1704.04861 for general identification of objects inside an image.
+        - AppCategorizer: A custom classifier used to identify the name of the application inside a screenshot
+
+     - Parameters:
+        - image: The asset for the image to be classified
+     - Returns:
+        - A list of identified Tags for the input image
+     */
     func classify(asset: PHAsset) -> [Tag] {
         let objectsModel = MobileNet()
         let appNameModel = AppCategorizer()
