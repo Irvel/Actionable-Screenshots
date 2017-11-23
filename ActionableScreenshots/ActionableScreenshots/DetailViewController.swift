@@ -79,14 +79,10 @@ class DetailViewController: UIViewController {
         if screenshot!.hasText {
             let alertController = UIAlertController(title: "Recognized Text", message: screenshot!.text, preferredStyle: .alert)
 
-            let OKAction = UIAlertAction(title: "OK", style: .default) { action in
-                // ...
-            }
+            let OKAction = UIAlertAction(title: "OK", style: .default) { action in }
             alertController.addAction(OKAction)
 
-            self.present(alertController, animated: true) {
-                // ...
-            }
+            self.present(alertController, animated: true) { }
         }
     }
 
@@ -103,10 +99,6 @@ class DetailViewController: UIViewController {
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
-        /*dismiss(animated: true, completion: {
-            self.previousView?.reloadCollection()
-            self.categoriesView?.tableView.reloadData()
-        })*/
         dismiss(animated: true, completion: nil)
     }
 }
