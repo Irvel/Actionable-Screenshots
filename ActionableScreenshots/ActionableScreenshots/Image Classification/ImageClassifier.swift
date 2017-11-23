@@ -34,6 +34,7 @@ class ImageClassifier {
         let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
 
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+
         let context = CGContext(data: pixelData, width: width, height: width, bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
 
         context?.translateBy(x: 0, y: CGFloat(width))
@@ -49,16 +50,16 @@ class ImageClassifier {
 
     func classify(asset: PHAsset) -> [Tag] {
         let objectsModel = MobileNet()
-        let appNameModel = bigModel()
+        let appNameModel = muchBetter()
         let placesModel = GoogLeNetPlaces()
         let image = fetchSmallImage(from: asset)
         let pixelBuffer: CVPixelBuffer = toBuffer(from: image!)!
-        let minProb = 0.55
+        let minProb = 0.67
         var foundTags: [Tag] = []
 
         if let prediction = try? objectsModel.prediction(image: pixelBuffer) {
             for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
-                if probability >= minProb {
+                if probability >= minProb && !label.lowercased().contains("web site") {
                     var allLabels = label.components(separatedBy: ", ")
                     let newTag = Tag()
                     newTag.type = .detectedObject
@@ -69,9 +70,11 @@ class ImageClassifier {
         }
 
         if let prediction = try? appNameModel.prediction(image: pixelBuffer) {
+            print(Array(prediction.classLabelProbs).description)
             for (label, probability) in (Array(prediction.classLabelProbs).sorted {$0.1 > $1.1}) {
-                if probability >= 0.3{
-                    if label != "other" && label != "meme" { // Other is used to capture all apps that we're currently not covering
+                if probability >= minProb {
+                    if label != "other" { // Other is used to capture all apps that we're currently not covering
+                        print(probability)
                         let newTag = Tag()
                         newTag.type = .detectedApplication
                         newTag.id = label

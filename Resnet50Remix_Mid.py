@@ -21,6 +21,8 @@ from keras.utils.vis_utils import model_to_dot
 from matplotlib.pyplot import imshow
 
 from PIL import Image
+import random
+
 
 import os
 
@@ -39,6 +41,23 @@ directory and a target size.
 - Normalizes the images
 """
 
+
+def load_single_image(source_image, img_size=(224, 224)):
+    assert os.path.exists(source_image)
+
+    single_image = np.zeros((1, img_size[0], img_size[1], 3))
+
+    image = Image.open(source_image)
+    image = image.resize(img_size)
+    image.load()
+    image_background = Image.new("RGB", image.size, (255, 255, 255))
+    image_background.paste(image, mask=image.split()[
+                           3])  # Remove any alpha channel
+    image = np.array(image_background) / 255.
+    single_image[0] = image
+
+
+    return single_image
 
 def make_test_train_set(source_dir, target_size, split_ratio=.17, img_size=(224, 224)):
     assert isinstance(target_size, int)
@@ -79,7 +98,8 @@ def make_test_train_set(source_dir, target_size, split_ratio=.17, img_size=(224,
     for lbl_idx, label in enumerate(labels):
         num_train_loaded = total_train_offset
         num_test_loaded = total_test_offset
-        for file in os.listdir(os.path.join(source_dir, label)):
+        class_files = os.listdir(os.path.join(source_dir, label))
+        for file in random.sample(class_files, len(class_files)):
             try:
                 image = Image.open(os.path.join(source_dir, label, file))
                 # image.verify()  This is failing with images that are valid so this might be a bug with PIL
@@ -323,8 +343,8 @@ def lr_schedule(epoch):
 def main():
     out_model_dir = "/output/"
     data_dir = "/screenshots_train"
-    num_examples = 15005
-    num_epochs = 180
+    num_examples = 6005
+    num_epochs = 12
     batch_size = 32
     data_augmentation = False
     X_train, Y_train, X_test, Y_test, labels = make_test_train_set(data_dir, num_examples)
