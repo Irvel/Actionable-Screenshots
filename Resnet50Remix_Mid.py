@@ -51,13 +51,13 @@ def load_single_image(source_image, img_size=(224, 224)):
     image = image.resize(img_size)
     image.load()
     image_background = Image.new("RGB", image.size, (255, 255, 255))
-    image_background.paste(image, mask=image.split()[
-                           3])  # Remove any alpha channel
+    image_background.paste(image, mask=image.split()[3])  # Remove any alpha channel
     image = np.array(image_background) / 255.
     single_image[0] = image
     return single_image
 
-def make_test_train_set(source_dir, target_size, split_ratio=.17, img_size=(224, 224)):
+
+def make_test_train_set(source_dir, target_size, split_ratio=.2, img_size=(224, 224)):
     assert isinstance(target_size, int)
     assert target_size > 1
     assert os.path.isdir(source_dir)
@@ -86,10 +86,10 @@ def make_test_train_set(source_dir, target_size, split_ratio=.17, img_size=(224,
     print(f"Generating {test_per_label} test examples for each class (total of {test_samples})")
 
     # Load the images
-    X_train_images = np.zeros((train_samples, img_size[0], img_size[1], 3))
-    Y_train_images = np.zeros((train_samples, len(labels)))
-    X_test_images = np.zeros((test_samples, img_size[0], img_size[1], 3))
-    Y_test_images = np.zeros((test_samples, len(labels)))
+    X_train_images = np.zeros((train_samples, img_size[1], img_size[0], 3), dtype=np.float64)
+    Y_train_images = np.zeros((train_samples, len(labels)), dtype=np.float64)
+    X_test_images = np.zeros((test_samples, img_size[1], img_size[0], 3), dtype=np.float64)
+    Y_test_images = np.zeros((test_samples, len(labels)), dtype=np.float64)
 
     total_train_offset = 0
     total_test_offset = 0
@@ -102,9 +102,10 @@ def make_test_train_set(source_dir, target_size, split_ratio=.17, img_size=(224,
                 image = Image.open(os.path.join(source_dir, label, file))
                 # image.verify()  This is failing with images that are valid so this might be a bug with PIL
                 image = image.resize(img_size)
+                #image.save("/output/dimensioncheck.jpg")
                 # Normalize
-                image = np.array(image) / 255.
-                image -= np.mean(image)
+                image = np.array(image, dtype=np.float64) / 255.
+                #image -= np.mean(image)
                 if (num_train_loaded - total_train_offset) < train_per_label:
                     #print(f"lbl_idx = {lbl_idx}      num_train_loaded = {num_train_loaded}")
                     X_train_images[num_train_loaded] = image
@@ -341,11 +342,19 @@ def lr_schedule(epoch):
 def main():
     out_model_dir = "/output/"
     data_dir = "/screenshots_train"
-    num_examples = 6005
+    num_examples = 13005
     num_epochs = 12
     batch_size = 32
+    image_size = (260, 424)
     data_augmentation = False
-    X_train, Y_train, X_test, Y_test, labels = make_test_train_set(data_dir, num_examples)
+    X_train, Y_train, X_test, Y_test, labels = make_test_train_set(data_dir,
+                                                                   num_examples,
+                                                                   0.17,
+                                                                   image_size)
+
+    with open(os.path.join(out_model_dir, "class_labels"), "w") as file:
+        file.write(str(labels))
+
 
     model = ResNet50(input_shape=X_train[0].shape, classes=len(labels))
     model.compile(optimizer=Adam(lr=lr_schedule(0)),
