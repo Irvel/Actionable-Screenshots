@@ -389,6 +389,7 @@
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fpf-Mx-XdO">
+                                            <inset key="imageInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="addButtonTapped:" destination="oBJ-ls-jXQ" id="cUE-3o-WcR"/>
