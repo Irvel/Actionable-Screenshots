@@ -295,7 +295,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     func processScreenshots(screenshots: PHFetchResult<PHAsset>) {
         let ocrProcessor = OCRProcessor()
         let classifier = ImageClassifier()
-        let bagGenerator = BagGenerator()
         
         for index in 0...screenshots.count - 1 {
             let extractedText = ocrProcessor.extractText(from: screenshots[index])
@@ -314,10 +313,6 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
             if mlCategories.count > 0 {
                 print("Identified the following categories: \(mlCategories)")
                 screenshot.addTags(from: mlCategories)
-            }
-            if extractedText != nil {
-                let bowTags = bagGenerator.bagFromText(text: extractedText!)
-                screenshot.addTags(from: bowTags)
             }
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
