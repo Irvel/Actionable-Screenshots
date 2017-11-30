@@ -15,6 +15,7 @@
 		15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA71F9C2F0000556147 /* DetailViewController.swift */; };
 		15135EAA1F9CED1500556147 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15135EA91F9CED1500556147 /* CollectionViewCell.swift */; };
 		152428A61FBC88540015A9FE /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152428A51FBC88540015A9FE /* TagsViewController.swift */; };
+		15967FA31FCFFC0A0057694B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15967FA21FCFFC0A0057694B /* TabBarController.swift */; };
 		15EB0B351FBC0EF600582AFB /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EB0B341FBC0EF600582AFB /* Tag.swift */; };
 		9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9932FCB11F9D6647001C7005 /* Screenshot.swift */; };
 		995E31A01FBD1BDC00F29100 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995E319F1FBD1BDC00F29100 /* CategoriesTableViewController.swift */; };
@@ -39,6 +40,7 @@
 		15135EA71F9C2F0000556147 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		15135EA91F9CED1500556147 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		152428A51FBC88540015A9FE /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		15967FA21FCFFC0A0057694B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		15EB0B341FBC0EF600582AFB /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		9845053E58D288F1F76144BE /* Pods-ActionableScreenshots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ActionableScreenshots.release.xcconfig"; path = "Pods/Target Support Files/Pods-ActionableScreenshots/Pods-ActionableScreenshots.release.xcconfig"; sourceTree = "<group>"; };
 		9932FCB11F9D6647001C7005 /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				CC5645921FBA4FF2006D4D94 /* Text Processing */,
 				15135E931F9C289A00556147 /* AppDelegate.swift */,
 				15135E971F9C289A00556147 /* AllScreenshotsViewController.swift */,
+				15967FA21FCFFC0A0057694B /* TabBarController.swift */,
 				995E31A11FBD1DFC00F29100 /* CategorViewCell.swift */,
 				15135E991F9C289A00556147 /* Main.storyboard */,
 				995E319F1FBD1BDC00F29100 /* CategoriesTableViewController.swift */,
@@ -288,6 +291,7 @@
 				CCCA61B11FB51DA7001E7DBC /* ImageClassifier.swift in Sources */,
 				995E31A01FBD1BDC00F29100 /* CategoriesTableViewController.swift in Sources */,
 				15135E981F9C289A00556147 /* AllScreenshotsViewController.swift in Sources */,
+				15967FA31FCFFC0A0057694B /* TabBarController.swift in Sources */,
 				152428A61FBC88540015A9FE /* TagsViewController.swift in Sources */,
 				15135E941F9C289A00556147 /* AppDelegate.swift in Sources */,
 				995E31A21FBD1DFC00F29100 /* CategorViewCell.swift in Sources */,
