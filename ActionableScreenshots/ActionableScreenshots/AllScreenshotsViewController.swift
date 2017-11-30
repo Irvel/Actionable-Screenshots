@@ -223,7 +223,9 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         fetchOptions.isSynchronous = true
         fetchOptions.resizeMode = .fast
         let currentImg = screenshot.getImage(width: cellSize.width, height: cellSize.height, contentMode: .aspectFill, fetchOptions: fetchOptions)
-
+        
+        cell.layer.shouldRasterize = true
+        cell.layer.rasterizationScale = UIScreen.main.scale
         cell.imgView.image = currentImg
         cell.layer.cornerRadius = 3.1
 
