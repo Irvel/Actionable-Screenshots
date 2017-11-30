@@ -81,7 +81,7 @@ let EN_STOP_WORDS: Set = ["they'd", "elsewhere", "almost", "than", "really", "ca
                          "yourselves", "and", "until", "neither", "in", "more", "willing", "whether",
                          "seeing", "often", "tried", "containing", "wasn't", "appropriate", "particular", "ignored",
                          "how", "furthermore", "cannot", "beside", "about", "same", "nice", "if",
-                         "brought", "ive", "aren't", "she’s"]
+                         "brought", "ive", "aren't", "she’s", "http", "https"]
 
 let ES_STOP_WORDS: Set = ["eres", "consigue", "hoje", "intentamos", "arriba", "tem", "j", "míos",
                          "nunca", "fostes", "ese", "tu", "éstos", "con", "estoy", "em",
@@ -197,12 +197,27 @@ let ES_STOP_WORDS: Set = ["eres", "consigue", "hoje", "intentamos", "arriba", "t
                          "tenía", "aquí", "horas", "habrá", "primer", "muitos", "tras", "deste", "moi",
                          "aussi"]
 
+
 class BagGenerator {
+    
+    func splitIntoWords (_ text: String) -> [String] {
+        var words: [String] = []
+        text.enumerateSubstrings(in: text.startIndex..<text.endIndex,
+                                   options: .byWords) {
+                                    (substring, _, _, _) -> () in
+                                    words.append(substring!.lowercased()) }
+        return words
+    }
+    
+    func isNumeric (_ string: String) -> Bool {
+        return CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: string))
+    }
+        
     func bagFromText (text: String) -> [Tag] {
-        let maxTags = 3
+        let maxTags = 1
         var bag: [String: Int] = [:]
-        for word in text.components(separatedBy: " ") {
-            if !EN_STOP_WORDS.contains(word) && !ES_STOP_WORDS.contains(word) {
+        for word in splitIntoWords(text) {
+            if !EN_STOP_WORDS.contains(word) && !ES_STOP_WORDS.contains(word) && !isNumeric(word) {
                 if let count = bag[word] {
                     bag[word] = count + 1
                 }
@@ -215,7 +230,7 @@ class BagGenerator {
         var frequentWords: [Tag] = []
         var currentTags = 0
         for (word, count) in (Array(bag).sorted {$0.1 > $1.1}) {
-            if count >= 3 && currentTags < maxTags {
+            if count >= 4 && currentTags < maxTags && word.count > 2 {
                 let newTag = Tag()
                 newTag.type = .detectedObject
                 newTag.id = word
