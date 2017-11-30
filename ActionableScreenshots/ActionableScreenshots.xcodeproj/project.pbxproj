@@ -25,6 +25,7 @@
 		CCCA61AF1FB51D6A001E7DBC /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */; };
 		CCCA61B11FB51DA7001E7DBC /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA61B01FB51DA7001E7DBC /* ImageClassifier.swift */; };
 		CCCEE1631FCFDAAC00935C16 /* AppCategorizer.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CCCEE1621FCFDAAC00935C16 /* AppCategorizer.mlmodel */; };
+		CCCEE1651FD0401300935C16 /* BagGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEE1641FD0401300935C16 /* BagGenerator.swift */; };
 		CE211736B537D8376B0E2223 /* Pods_ActionableScreenshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E7DD1D58AF7BAF7D4EFA78 /* Pods_ActionableScreenshots.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		CCCA61AE1FB51D6A001E7DBC /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
 		CCCA61B01FB51DA7001E7DBC /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
 		CCCEE1621FCFDAAC00935C16 /* AppCategorizer.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AppCategorizer.mlmodel; sourceTree = "<group>"; };
+		CCCEE1641FD0401300935C16 /* BagGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			children = (
 				CCC1AA5B1F9D3EF4002D2873 /* tessdata */,
 				CCC1AA5D1F9D3F8D002D2873 /* OCRProcessor.swift */,
+				CCCEE1641FD0401300935C16 /* BagGenerator.swift */,
 			);
 			path = "Text Processing";
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				15EB0B351FBC0EF600582AFB /* Tag.swift in Sources */,
 				15135EA81F9C2F0000556147 /* DetailViewController.swift in Sources */,
 				CCCA61AF1FB51D6A001E7DBC /* MobileNet.mlmodel in Sources */,
+				CCCEE1651FD0401300935C16 /* BagGenerator.swift in Sources */,
 				CCC1AA5E1F9D3F8D002D2873 /* OCRProcessor.swift in Sources */,
 				995E5DA21FBD273C007D1F41 /* CategoryCollectionViewCell.swift in Sources */,
 				9932FCB21F9D6647001C7005 /* Screenshot.swift in Sources */,
