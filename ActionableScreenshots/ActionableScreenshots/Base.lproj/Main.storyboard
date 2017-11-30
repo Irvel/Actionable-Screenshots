@@ -389,6 +389,7 @@
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fpf-Mx-XdO">
+                                            <inset key="imageInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="addButtonTapped:" destination="oBJ-ls-jXQ" id="cUE-3o-WcR"/>
@@ -425,7 +426,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="TabBarController" customModule="ActionableScreenshots" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -471,7 +472,16 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZF2-kP-EbN">
                                 <rect key="frame" x="20" y="70" width="280" height="429"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Créditos:Actionable Screenshots ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Agosto Diciembre de 2017, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.Desarrolladores:Irvel Nduva MatíasJesús Alejandro GalvánJorge GilActionable Screenshots se distribuye como está de manera gratuita y se prohíbe su distribución y uso con fines de lucro.</string>
+                                <string key="text">Créditos:
+
+Actionable Screenshots ha sido desarrollado por estudiantes del Tecnológico de Monterrey durante el semestre Agosto Diciembre de 2017, como parte del curso Desarrollo de Aplicaciones para Dispositivos Móviles y asesorados por la maestra Yolanda Martínez Treviño.
+
+Desarrolladores:
+Irvel Nduva Matías
+Jesús Alejandro Galván
+Jorge Gil
+
+Actionable Screenshots se distribuye como está de manera gratuita y se prohíbe su distribución y uso con fines de lucro.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -496,6 +506,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2J5-ir-8as"/>
+        <segue reference="QMx-Jy-nro"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -49,6 +49,10 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
         super.viewDidLoad()
 
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
 
         self.tabBarController?.tabBar.layer.shadowOpacity = 0.2
         self.tabBarController?.tabBar.layer.shadowRadius = 5.0
@@ -71,14 +75,26 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        filteredScreenshots = Array(filteredScreenshotsQuery!)
+        if searchBar.text == "" {
+            filteredScreenshotsQuery = screenshotsCollection?.sorted(byKeyPath: "creationDate", ascending: false)
+            filteredScreenshots = Array(filteredScreenshotsQuery!)
+        }
+        else {
+            let predicateQuery = NSPredicate(format: "text CONTAINS[cd] %@", searchBar.text!)
+            let predicateTag = NSPredicate(format: "ANY tags.id CONTAINS[cd] %@", searchBar.text!)
+            filteredScreenshotsQuery = screenshotsCollection?.filter(predicateQuery)
+            let tagScreenshotsQuery = screenshotsCollection?.filter(predicateTag)
+            filteredScreenshots = (Array(tagScreenshotsQuery!) + Array(filteredScreenshotsQuery!)).orderedSet
+        }
+        
         self.collectionView.reloadData()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
+    
+    
     
     // MARK: Photo retrieval
     
@@ -189,7 +205,14 @@ class AllScreenshotsViewController: UIViewController, UICollectionViewDelegate, 
 
         collectionView.reloadData()
     }
-
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    @objc func dismissKeyboard() {
+        searchBar.resignFirstResponder()
+    }
     
     // MARK: Functions for CollectionView
 
